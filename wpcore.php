@@ -3,7 +3,7 @@
  * Plugin Name: WPCore
  * Plugin URI: http://wpcore.com
  * Description: Keep all your favorite plugins in one place and install them instantly on any site
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Stuart Starr
  * Author URI: http://stuey.net
  * License: GPL2
