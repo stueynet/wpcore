@@ -1,22 +1,11 @@
-=== WPCore ===
-Plugin Name: WPCore
-Plugin URI: http://wpcore.com
-Tags: wp, plugins, installation, admin, administration, install, wpcore, plugin collections, plugin groups, plugin manager, bulk plugin installer
-Author URI: http://wpcore.com
-Author: Stuart Starr
-Contributors: stueynet
-Requires at least: 3.5
-Tested up to: 3.9.1
-Stable tag: trunk
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl.html
+# WPCore
 
 Create plugin collections and install them in one click on any WordPress site.
 
-== Description ==
+## Description 
 WPCore is a tool that allows you to manage collections of WordPress plugins and then quickly install them on any WordPress site. You can generate your collections at http://wpcore.com and then import them to your WordPress site by copying and pasting your unique collection key in WordPress.
 
-== Installation ==
+## Installation
 1. Download the plugin via http://wpcore.com/download.
 1. Upload the ZIP file through the \"Plugins > Add New > Upload\" screen in your WordPress dashboard.
 1. Activate the plugin through the \'Plugins\' menu in WordPress
@@ -27,11 +16,11 @@ WPCore is a tool that allows you to manage collections of WordPress plugins and 
 1. Add collection keys
 1. Install the plugins!
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions
 
 You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
-== Changelog ==
+## Changelog
 
 = 1.2.2 =
 * Updated readme again (sorry)
