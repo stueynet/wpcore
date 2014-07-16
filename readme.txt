@@ -1,5 +1,5 @@
-=== WPCore ===
-Plugin Name: WPCore
+=== WPCore Plugin Manager ===
+Plugin Name: WPCore Plugin Manager
 Plugin URI: http://wpcore.com
 Tags: wp, plugins, installation, admin, administration, install, wpcore, plugin collections, plugin groups, plugin manager, bulk plugin installer
 Author URI: http://wpcore.com
@@ -7,7 +7,7 @@ Author: Stuart Starr
 Contributors: stueynet
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 1.2.4
+Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -31,7 +31,21 @@ WPCore is a tool that allows you to manage collections of WordPress plugins and 
 
 You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
+== Screenshots ==
+
+1. Create plugin collections at wpcore.com
+2. Install them instantly on any WordPress site.
+
+== Upgrade Notice ==
+Updated the plugin name to lessen confusion.
+
 == Changelog ==
+
+= 1.2.7 =
+* Updated Plugin name to alleviate some confusion between this plugin and the WordPress Core.
+
+= 1.2.6 =
+* Fixed bug that caused all the assets on the WordPress.org SVN to go missing. All good now.
 
 = 1.2.2 =
 * Updated readme again (sorry)
