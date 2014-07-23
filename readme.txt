@@ -36,10 +36,13 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 1. Create plugin collections at wpcore.com
 2. Install them instantly on any WordPress site.
 
-== Upgrade Notice ==
-Updated the plugin name to lessen confusion.
 
 == Changelog ==
+
+
+= 1.2.8 =
+* Reenabled the admin nag dismiss button.
+
 
 = 1.2.7 =
 * Updated Plugin name to alleviate some confusion between this plugin and the WordPress Core.
