@@ -263,12 +263,14 @@ class WPCore {
 
 		// grab the array of keys from the settings
 		$keys = get_option('wpcore_keys');
-
+		$payload = $this->get_payload();
+		print_r($payload);
+//		die();
 		if($keys){
-			if( get_transient( $this->transient_key ) ){
-				$plugins = get_transient( $this->transient_key );
-				$plugins['cache'] = true;
-			} else {
+				if( get_transient( $this->transient_key ) ){
+					$plugins = get_transient( $this->transient_key );
+					$plugins['cache'] = true;
+				} else {
 				foreach($keys as $key){
 					// grad the contents of each collection
 					$response =  wp_remote_get('http://wpcore.com/collections/'.$key.'/json', array('timeout' => 1));
@@ -350,10 +352,44 @@ class WPCore {
 	}
 
 	function register_settings() {
-		add_option( 'wpcore_profile_url', '1');
-		register_setting( 'default', 'wpcore_keys' );
+		add_option( 'wpcore_keys', '1');
+		register_setting( 'default', 'wpcore_keys', array( $this, 'save_keys' ) );
 	}
 
+	function save_keys($input){
+
+		// every time we save keys we need to generate the payload
+		$this->generate_payload($input);
+		return $input;
+	}
+
+	function get_payload(){
+		if( get_transient( $this->transient_key )){
+			return get_transient( $this->transient_key );
+		}
+		return $this->generate_payload( get_option( 'wpcore_keys' ) );
+	}
+
+	function generate_payload($input){
+		foreach($input as $key){
+			// grad the contents of each collection
+			$response =  wp_remote_get('http://wpcore.com/collections/'.$key.'/json', array('timeout' => 1));
+			$json =  wp_remote_retrieve_body($response);
+
+			// decode to array
+			$payload[] = json_decode($json,true);
+			if($payload['data']['plugins']){
+				// Go through all the plugins and add the, to the array also
+				foreach($payload['collection']['data']['plugins'] as $plugin){
+					if($payload['collection']['success']){
+						$payload['collection']['data']['plugins'][] = $plugin;
+					}
+				}
+			}
+		}
+		set_transient($this->transient_key, $payload, $this->transient_timeout);
+		return $payload;
+	}
 
 	function wpcore_options_page() {
 
