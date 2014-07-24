@@ -56,7 +56,7 @@
 											$i = 1;
 											foreach( $plugins as $plugin ){
 												?>
-												<a href=""><?php echo $plugin->name; ?></a>
+												<a href="http://localhost/wpcore/demo/wp-admin/plugin-install.php?tab=plugin-information&plugin=<?php echo $plugin->slug; ?>&TB_iframe=true&width=640&height=500" class="thickbox" title="<?php echo $plugin->name; ?>"><?php echo $plugin->name; ?></a>
 												<?php
 												if( $i != $count )
 													echo ', ';
