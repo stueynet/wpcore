@@ -256,10 +256,7 @@ class WPCore {
 		// extract the plugin array from the payload
 
 
-		add_filter('tgmpa_admin_menu_use_add_theme_page', 'wpcore_set_false');
-		function wpcore_set_false(){
-			return false;
-		}
+		add_filter('tgmpa_admin_menu_use_add_theme_page', array( $this, 'wpcore_set_false' ) );
 		// convert to object
 		$theme_text_domain = 'tgmpa';
 
@@ -307,6 +304,13 @@ class WPCore {
 		}
 	}
 
+	/**
+	 * Need a valid callback for filter?
+	 * @return bool
+	 */
+	function wpcore_set_false(){
+		return false;
+	}
 	/**
 	 * Add the menus
 	 */
