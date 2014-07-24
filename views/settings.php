@@ -75,7 +75,7 @@
 				<hr>
 				<?php submit_button('Save Collections'); ?>
 				<h3>Clear Cache</h3>
-				<p>To speed up performance we cache the plugin array in your local WordPress database. It stays for 1 hour. If you want to clear it now (perhaps you just added a new plugin to one of your collections and you are not seeing it here), simply click this button:</p>
+				<p>To speed up performance we cache the plugin array in your local WordPress database. If you want to clear it now (perhaps you just added a new plugin to one of your collections and you are not seeing it here), simply click this button:</p>
 				<?php submit_button('Clear Cache'); ?>
 			</form>
 		</div>

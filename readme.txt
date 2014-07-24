@@ -39,7 +39,7 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 == Changelog ==
 
-= 1.3.0 =
+= 1.3.1 =
 * MAJOR PERFORMANCE UPDATE!
 * Completely restructured the plugin to use the WordPress transient cache
 * Will only make external calls to WPCore API when you save and edit your collection keys
@@ -95,5 +95,5 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 == Upgrade Notice ==
 
-= 1.3.0 =
+= 1.3.1 =
 This is an major performance update. I have restructured the plugin to rely much less on external calls to wpcore.com. Please install asap. Report any issues!

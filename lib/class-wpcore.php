@@ -39,7 +39,7 @@ class WPCore {
 	/**
 	 * @var int
 	 */
-	protected $transient_timeout = 60;
+	protected $transient_timeout = 86400;
 
 	/**
 	 * Instance of this class.
