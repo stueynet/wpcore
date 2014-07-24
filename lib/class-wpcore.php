@@ -30,6 +30,10 @@ class WPCore {
 
 	protected $plugin_basename = 'wpcore';
 
+	protected $transient_key = 'wpcore_payload';
+
+	protected $transient_timeout = 60;
+
 	/**
 	 * Instance of this class.
 	 *
@@ -261,19 +265,26 @@ class WPCore {
 		$keys = get_option('wpcore_keys');
 
 		if($keys){
-			foreach($keys as $key){
-				// grad the contents of each collection
-				$response =  wp_remote_get('http://wpcore.com/collections/'.$key.'/json', array('timeout' => 1));
-				$json =  wp_remote_retrieve_body($response);
+			if( get_transient( $this->transient_key ) ){
+				$plugins = get_transient( $this->transient_key );
+				$plugins['cache'] = true;
+			} else {
+				foreach($keys as $key){
+					// grad the contents of each collection
+					$response =  wp_remote_get('http://wpcore.com/collections/'.$key.'/json', array('timeout' => 1));
+					$json =  wp_remote_retrieve_body($response);
 
 
-				// decode to array
-				$collection = json_decode($json,true);
-				if($collection['data']['plugins']){
-					// Go through all the plugins and add the, to the array also
-					foreach($collection['data']['plugins'] as $plugin){
-						$plugins[] = $plugin;
+					// decode to array
+					$collection = json_decode($json,true);
+					if($collection['data']['plugins']){
+						// Go through all the plugins and add the, to the array also
+						foreach($collection['data']['plugins'] as $plugin){
+							$plugins[] = $plugin;
+						}
 					}
+					set_transient($this->transient_key, $plugins, $this->transient_timeout);
+					$plugins['cache'] = false;
 				}
 			}
 			add_filter('tgmpa_admin_menu_use_add_theme_page', 'wpcore_set_false');
@@ -322,6 +333,7 @@ class WPCore {
 				)
 			);
 			if(isset($plugins)){
+//				echo $plugins['cache'];
 				tgmpa( $plugins, $config );
 			}
 		}
