@@ -40,8 +40,8 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 == Changelog ==
 
 = 1.3.0 =
-MAJOR PERFORMANCE UPDATE!
-* Complete restructured the plugin to use the WordPress transient cache
+* MAJOR PERFORMANCE UPDATE!
+* Completely restructured the plugin to use the WordPress transient cache
 * Will only make external calls to WPCore API when you save and edit your collection keys
 * Major speed improvement
 
