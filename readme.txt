@@ -39,6 +39,11 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 == Changelog ==
 
+= 1.3.0 =
+MAJOR PERFORMANCE UPDATE!
+* Complete restructured the plugin to use the WordPress transient cache
+* Will only make external calls to WPCore API when you save and edit your collection keys
+* Major speed improvement
 
 = 1.2.8 =
 * Reenabled the admin nag dismiss button.
@@ -87,3 +92,8 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 = 0.1 =
 * First one
+
+== Upgrade Notice ==
+
+= 1.3.0 =
+This is an major performance update. I have restructured the plugin to rely much less on external calls to wpcore.com. Please install asap. Report any issues!

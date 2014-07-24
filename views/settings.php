@@ -15,62 +15,46 @@
 					</thead>
 					<tbody>
 					<?php
-					//get the keys serialized keys
-					//$wpCoreKeys = unserialize(get_option('wpcore_key'));
-
-					// grab the settings which has multiple keys
-					$keys = get_option('wpcore_keys');
-					if($keys):
-
-						// iterate over each key
-
-						foreach($keys as $key){
-							// grab the json and break it into the collection info and the plugin array
-							$response =  wp_remote_get('http://wpcore.com/collections/'.$key.'/json', array('timeout' => 1));
-							$json =  wp_remote_retrieve_body($response);
-							$collection = json_decode($json);
-							if( ! $collection->success ) {
-								$error = '<p>Bad key</p>';
-							} else {
-								$error = false;
-								$name = $collection->data->name;
-								$plugins = $collection->data->plugins;
-							}
+					$payload = $this->get_payload();
+//					print_r($payload);
+//					die();
+					if( count($payload) > 0 ):
+						foreach($payload as $collection){
 
 							?>
-							<tr>
-								<td>
-									<h3><?php echo isset( $name ) ? $name : 'Bad Key'; ?></h3>
-									<p><input type="text" id="wpcore_keys" name="wpcore_keys[]" value="<?php echo $key; ?>" required="required"></p>
-									<?php if( isset($name) ): ?>
-										<a href="http://wpcore.com/collections/<?php echo $key; ?>" target="_blank">View on WPCore.com</a>
-									<?php endif; ?>
-								</td>
-								<td>
-									<ul>
-										<?php
-										if( $error ){
-											echo $error;
-										} else {
-											$count = count( $plugins );
-											$i = 1;
-											foreach( $plugins as $plugin ){
-												?>
-												<a href="http://localhost/wpcore/demo/wp-admin/plugin-install.php?tab=plugin-information&plugin=<?php echo $plugin->slug; ?>&TB_iframe=true&width=640&height=500" class="thickbox" title="<?php echo $plugin->name; ?>"><?php echo $plugin->name; ?></a>
-												<?php
-												if( $i != $count )
-													echo ', ';
-												$i++;
+								<tr>
+									<td>
+										<h3><?php echo isset( $collection['data']['name'] ) ? $collection['data']['name'] : 'Bad Key'; ?></h3>
+										<p><input type="text" id="wpcore_keys" name="wpcore_keys[]" value="<?php echo $collection['data']['key']; ?>" required="required"></p>
+										<?php if( isset($collection['data']['name']) ): ?>
+											<a href="http://wpcore.com/collections/<?php echo $key; ?>" target="_blank">View on WPCore.com</a>
+										<?php endif; ?>
+									</td>
+									<td>
+										<ul>
+											<?php
+											if( $collection['success'] ) {
+												$count = count( $collection['data']['plugins'] );
+												$i = 1;
+												foreach( $collection['data']['plugins'] as $plugin ){
+													?>
+													<a href="http://localhost/wpcore/demo/wp-admin/plugin-install.php?tab=plugin-information&plugin=<?php echo $plugin['slug']; ?>&TB_iframe=true&width=640&height=500" class="thickbox" title="<?php echo $plugin['name']; ?>"><?php echo $plugin['name']; ?></a>
+													<?php
+													if( $i != $count )
+														echo ', ';
+													$i++;
+												}
+											} else {
+												echo 'Bad key';
 											}
-										}
-										?>
-									</ul>
-								</td>
-								<td align="right">
-									<input type="button" class="wpcore_ibtnDel button button-small"  value="Delete">
-								</td>
-							</tr>
-						<?php }
+											?>
+										</ul>
+									</td>
+									<td align="right">
+										<input type="button" class="wpcore_ibtnDel button button-small"  value="Delete">
+									</td>
+								</tr>
+							<?php }
 
 					else:
 
@@ -81,7 +65,7 @@
 					</tbody>
 				</table>
 				</p>
-				<?php if( $keys ):?>
+				<?php if( count( $payload ) ):?>
 					<input type="button" id="wpcore_addrow" class="button button-large" value="Add another collection key" />
 					<a href="admin.php?page=wpcore-install-plugins" class="button button-large float-right">Install Plugins</a>
 				<?php else: ?>

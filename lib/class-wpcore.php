@@ -10,8 +10,6 @@ class WPCore {
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
-	 * @since   1.0.0
-	 *
 	 * @var     string
 	 */
 	const VERSION = '1.0.0';
@@ -28,17 +26,23 @@ class WPCore {
 	 */
 	protected $plugin_slug = 'wpcore';
 
+	/**
+	 * @var string
+	 */
 	protected $plugin_basename = 'wpcore';
 
+	/**
+	 * @var string
+	 */
 	protected $transient_key = 'wpcore_payload';
 
+	/**
+	 * @var int
+	 */
 	protected $transient_timeout = 60;
 
 	/**
 	 * Instance of this class.
-	 *
-	 * @since    1.0.0
-	 *
 	 * @var      object
 	 */
 	protected static $instance = null;
@@ -46,12 +50,13 @@ class WPCore {
 	/**
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
-	 *
-	 * @since     1.0.0
 	 */
 
 	protected $plugin_screen_hook_suffix = null;
 
+	/**
+	 *
+	 */
 	function __construct() {
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
@@ -79,8 +84,6 @@ class WPCore {
 	/**
 	 * Return the plugin slug.
 	 *
-	 * @since    1.0.0
-	 *
 	 * @return    Plugin slug variable.
 	 */
 	public function get_plugin_slug() {
@@ -89,8 +92,6 @@ class WPCore {
 
 	/**
 	 * Return an instance of this class.
-	 *
-	 * @since     1.0.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */
@@ -106,8 +107,6 @@ class WPCore {
 
 	/**
 	 * Fired when the plugin is activated.
-	 *
-	 * @since    1.0.0
 	 *
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses
 	 *                                       "Network Activate" action, false if
@@ -143,9 +142,6 @@ class WPCore {
 
 	/**
 	 * Fired when the plugin is deactivated.
-	 *
-	 * @since    1.0.0
-	 *
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses
 	 *                                       "Network Deactivate" action, false if
 	 *                                       WPMU is disabled or plugin is
@@ -182,9 +178,6 @@ class WPCore {
 
 	/**
 	 * Fired when a new site is activated with a WPMU environment.
-	 *
-	 * @since    1.0.0
-	 *
 	 * @param    int    $blog_id    ID of the new blog.
 	 */
 	public function activate_new_site( $blog_id ) {
@@ -204,8 +197,6 @@ class WPCore {
 	 * - not archived
 	 * - not spam
 	 * - not deleted
-	 *
-	 * @since    1.0.0
 	 *
 	 * @return   array|false    The blog ids, false if no matches.
 	 */
@@ -254,93 +245,71 @@ class WPCore {
 
 	}
 
+	/**
+	 * The main logic to set the recommended plugins
+	 */
 	function wpcore_register_required_plugins() {
 
-		/**
-		 * Array of plugin arrays. Required keys are name and slug.
-		 * If the source is NOT from the .org repo, then source is also required.
-		 */
-
 		// grab the array of keys from the settings
-		$keys = get_option('wpcore_keys');
-		$payload = $this->get_payload();
-		print_r($payload);
-//		die();
-		if($keys){
-				if( get_transient( $this->transient_key ) ){
-					$plugins = get_transient( $this->transient_key );
-					$plugins['cache'] = true;
-				} else {
-				foreach($keys as $key){
-					// grad the contents of each collection
-					$response =  wp_remote_get('http://wpcore.com/collections/'.$key.'/json', array('timeout' => 1));
-					$json =  wp_remote_retrieve_body($response);
+		$plugins = $this->get_plugins_from_payload();
+
+		// extract the plugin array from the payload
 
 
-					// decode to array
-					$collection = json_decode($json,true);
-					if($collection['data']['plugins']){
-						// Go through all the plugins and add the, to the array also
-						foreach($collection['data']['plugins'] as $plugin){
-							$plugins[] = $plugin;
-						}
-					}
-					set_transient($this->transient_key, $plugins, $this->transient_timeout);
-					$plugins['cache'] = false;
-				}
-			}
-			add_filter('tgmpa_admin_menu_use_add_theme_page', 'wpcore_set_false');
-			function wpcore_set_false(){
-				return false;
-			}
-			// convert to object
-			$theme_text_domain = 'tgmpa';
+		add_filter('tgmpa_admin_menu_use_add_theme_page', 'wpcore_set_false');
+		function wpcore_set_false(){
+			return false;
+		}
+		// convert to object
+		$theme_text_domain = 'tgmpa';
 
-			/**
-			 * Array of configuration settings. Amend each line as needed.
-			 * If you want the default strings to be available under your own theme domain,
-			 * leave the strings uncommented.
-			 * Some of the strings are added into a sprintf, so see the comments at the
-			 * end of each line for what each argument will be.
-			 */
-			$config = array(
-				'domain'       		=> $theme_text_domain,         	// Text domain - likely want to be the same as your theme.
-				'default_path' 		=> '',                         	// Default absolute path to pre-packaged plugins
-				'parent_menu_slug' 	=> 'plugins.php', 				// Default parent menu slug
-				'parent_url_slug' 	=> 'plugins.php', 				// Default parent URL slug
-				'menu'         		=> 'wpcore-install-plugins', 	// Menu slug
-				'has_notices'      	=> true,                       	// Show admin notices or not
-				'is_automatic'    	=> false,					   	// Automatically activate plugins after installation or not
-				'message' 			=> '',							// Message to output right before the plugins table
-				'dismissable'		=> true,						// Message to output right before the plugins table
-				'strings'      		=> array(
-					'page_title'                       			=> __( 'WPCore Plugin list', $theme_text_domain ),
-					'menu_title'                       			=> __( 'Install Plugins', $theme_text_domain ),
-					'installing'                       			=> __( 'Installing Plugin: %s', $theme_text_domain ), // %1$s = plugin name
-					'oops'                             			=> __( 'Something went wrong with the plugin API.', $theme_text_domain ),
-					'notice_can_install_required'     			=> _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.' ), // %1$s = plugin name(s)
-					'notice_can_install_recommended'			=> _n_noop( 'WPCore Plugin: %1$s.', 'WPCore Plugins: %1$s.' ), // %1$s = plugin name(s)
-					'notice_cannot_install'  					=> _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.' ), // %1$s = plugin name(s)
-					'notice_can_activate_required'    			=> _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.' ), // %1$s = plugin name(s)
-					'notice_can_activate_recommended'			=> _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.' ), // %1$s = plugin name(s)
-					'notice_cannot_activate' 					=> _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.' ), // %1$s = plugin name(s)
-					'notice_ask_to_update' 						=> _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.' ), // %1$s = plugin name(s)
-					'notice_cannot_update' 						=> _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.' ), // %1$s = plugin name(s)
-					'install_link' 					  			=> _n_noop( 'Begin installing plugin', 'Begin installing plugins' ),
-					'activate_link' 				  			=> _n_noop( 'Activate installed plugin', 'Activate installed plugins' ),
-					'return'                           			=> __( 'Return to Required Plugins Installer', $theme_text_domain ),
-					'plugin_activated'                 			=> __( 'Plugin activated successfully.', $theme_text_domain ),
-					'complete' 									=> __( 'All plugins installed and activated successfully. %s', $theme_text_domain ), // %1$s = dashboard link
-					'nag_type'									=> 'updated' // Determines admin notice type - can only be 'updated' or 'error'
-				)
-			);
-			if(isset($plugins)){
+		/**
+		 * Array of configuration settings. Amend each line as needed.
+		 * If you want the default strings to be available under your own theme domain,
+		 * leave the strings uncommented.
+		 * Some of the strings are added into a sprintf, so see the comments at the
+		 * end of each line for what each argument will be.
+		 */
+		$config = array(
+			'domain'       		=> $theme_text_domain,         	// Text domain - likely want to be the same as your theme.
+			'default_path' 		=> '',                         	// Default absolute path to pre-packaged plugins
+			'parent_menu_slug' 	=> 'plugins.php', 				// Default parent menu slug
+			'parent_url_slug' 	=> 'plugins.php', 				// Default parent URL slug
+			'menu'         		=> 'wpcore-install-plugins', 	// Menu slug
+			'has_notices'      	=> true,                       	// Show admin notices or not
+			'is_automatic'    	=> false,					   	// Automatically activate plugins after installation or not
+			'message' 			=> '',							// Message to output right before the plugins table
+			'dismissable'		=> true,						// Message to output right before the plugins table
+			'strings'      		=> array(
+				'page_title'                       			=> __( 'WPCore Plugin list', $theme_text_domain ),
+				'menu_title'                       			=> __( 'Install Plugins', $theme_text_domain ),
+				'installing'                       			=> __( 'Installing Plugin: %s', $theme_text_domain ), // %1$s = plugin name
+				'oops'                             			=> __( 'Something went wrong with the plugin API.', $theme_text_domain ),
+				'notice_can_install_required'     			=> _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.' ), // %1$s = plugin name(s)
+				'notice_can_install_recommended'			=> _n_noop( 'WPCore Plugin: %1$s.', 'WPCore Plugins: %1$s.' ), // %1$s = plugin name(s)
+				'notice_cannot_install'  					=> _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.' ), // %1$s = plugin name(s)
+				'notice_can_activate_required'    			=> _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.' ), // %1$s = plugin name(s)
+				'notice_can_activate_recommended'			=> _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.' ), // %1$s = plugin name(s)
+				'notice_cannot_activate' 					=> _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.' ), // %1$s = plugin name(s)
+				'notice_ask_to_update' 						=> _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.' ), // %1$s = plugin name(s)
+				'notice_cannot_update' 						=> _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.' ), // %1$s = plugin name(s)
+				'install_link' 					  			=> _n_noop( 'Begin installing plugin', 'Begin installing plugins' ),
+				'activate_link' 				  			=> _n_noop( 'Activate installed plugin', 'Activate installed plugins' ),
+				'return'                           			=> __( 'Return to Required Plugins Installer', $theme_text_domain ),
+				'plugin_activated'                 			=> __( 'Plugin activated successfully.', $theme_text_domain ),
+				'complete' 									=> __( 'All plugins installed and activated successfully. %s', $theme_text_domain ), // %1$s = dashboard link
+				'nag_type'									=> 'updated' // Determines admin notice type - can only be 'updated' or 'error'
+			)
+		);
+		if(isset($plugins)){
 //				echo $plugins['cache'];
-				tgmpa( $plugins, $config );
-			}
+			tgmpa( $plugins, $config );
 		}
 	}
 
+	/**
+	 * Add the menus
+	 */
 	function add_plugin_admin_menu() {
 
 		add_menu_page( 'WPCore Settings', 'WPCore', 'manage_options', 'wpcore', array ( $this, 'wpcore_options_page' ), plugins_url('assets/img/icon.png', dirname(__FILE__)), 69.324 );
@@ -351,11 +320,19 @@ class WPCore {
 		 */
 	}
 
+	/**
+	 * Register the setting for storing keys
+	 */
 	function register_settings() {
-		add_option( 'wpcore_keys', '1');
+		add_option( 'wpcore_keys', '');
 		register_setting( 'default', 'wpcore_keys', array( $this, 'save_keys' ) );
 	}
 
+	/**
+	 * This is the callback for register_setting above
+	 * @param $input
+	 * @return mixed
+	 */
 	function save_keys($input){
 
 		// every time we save keys we need to generate the payload
@@ -363,34 +340,74 @@ class WPCore {
 		return $input;
 	}
 
+	/**
+	 * Transport for payload. Give back the transient cache contents
+	 * or build a new payload and send that back
+	 * @return array|null
+	 */
 	function get_payload(){
 		if( get_transient( $this->transient_key )){
+//			echo 'from cache!!';
 			return get_transient( $this->transient_key );
 		}
 		return $this->generate_payload( get_option( 'wpcore_keys' ) );
 	}
 
+	/**
+	 * If necessary generate a new payload. This is heavy on
+	 * the server so we only do this when we have to.
+	 * @param $input
+	 * @return array|null
+	 */
 	function generate_payload($input){
-		foreach($input as $key){
-			// grad the contents of each collection
-			$response =  wp_remote_get('http://wpcore.com/collections/'.$key.'/json', array('timeout' => 1));
-			$json =  wp_remote_retrieve_body($response);
+		if($input){
+			foreach($input as $key){
+				// grad the contents of each collection
+				$response =  wp_remote_get('http://wpcore.com/collections/'.$key.'/json', array('timeout' => 1));
+				$json =  wp_remote_retrieve_body($response);
 
-			// decode to array
-			$payload[] = json_decode($json,true);
-			if($payload['data']['plugins']){
-				// Go through all the plugins and add the, to the array also
-				foreach($payload['collection']['data']['plugins'] as $plugin){
-					if($payload['collection']['success']){
-						$payload['collection']['data']['plugins'][] = $plugin;
+				// decode to array
+				$payload[] = json_decode($json,true);
+				if($payload['data']['plugins']){
+					// Go through all the plugins and add the, to the array also
+					foreach($payload['collection']['data']['plugins'] as $plugin){
+						if($payload['collection']['success']){
+							$payload['collection']['data']['plugins'][] = $plugin;
+						}
 					}
 				}
 			}
+		} else {
+			$payload = null;
 		}
 		set_transient($this->transient_key, $payload, $this->transient_timeout);
 		return $payload;
 	}
 
+	/**
+	 * Helper to grab all the plugins from the payload.
+	 * This is because the plugin list is flat.
+	 * @return array|null
+	 */
+	function get_plugins_from_payload(){
+		$payload = $this->get_payload();
+		if($payload){
+			foreach( $payload as $collection ){
+				if( $collection['success'] ){
+					foreach( $collection['data']['plugins'] as $plugin){
+						$plugins[] = $plugin;
+					}
+				}
+			}
+		} else {
+			$plugins = null;
+		}
+		return $plugins;
+	}
+
+	/**
+	 * Render the settings page
+	 */
 	function wpcore_options_page() {
 
 		wp_enqueue_script(
@@ -414,8 +431,6 @@ class WPCore {
 
 	/**
 	 * Add settings action link to the plugins page.
-	 *
-	 * @since    1.0.0
 	 */
 	public function add_action_links( $links ) {
 
