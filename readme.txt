@@ -38,6 +38,8 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 
 == Changelog ==
+= 1.3.2 =
+* Fixed issue where in some cases users were getting  Cannot redeclare wpcore_set_false()
 
 = 1.3.1 =
 * MAJOR PERFORMANCE UPDATE!
