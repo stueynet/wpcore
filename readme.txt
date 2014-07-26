@@ -1,7 +1,7 @@
 === WPCore Plugin Manager ===
 Plugin Name: WPCore Plugin Manager
 Plugin URI: http://wpcore.com
-Tags: wp, plugins, installation, admin, administration, install, wpcore, plugin collections, plugin groups, plugin manager, bulk plugin installer
+Tags: plugins, installation, admin, administration, install, wpcore, plugin collections, plugin groups, plugin manager, bulk plugin installer, multisite, compatible
 Author URI: http://wpcore.com
 Author: Stuart Starr
 Contributors: stueynet
@@ -38,6 +38,10 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 
 == Changelog ==
+= 1.3.3 =
+* Increased cache timeout. Click clear cache button in settings to fetch latest collection info
+* Tested with Multisite
+
 = 1.3.2 =
 * Fixed issue where in some cases users were getting  Cannot redeclare wpcore_set_false()
 

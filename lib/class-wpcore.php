@@ -39,7 +39,7 @@ if ( ! class_exists( 'WPCore' ) ) {
 		/**
 		 * @var int
 		 */
-		protected $transient_timeout = 86400;
+		protected $transient_timeout = null;
 
 		/**
 		 * Instance of this class.
