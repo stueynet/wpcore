@@ -353,19 +353,17 @@ if ( ! class_exists( 'WPCore' ) ) {
 		 */
 		function generate_payload($input){
 			if($input){
-				foreach($input as $key){
-					// grad the contents of each collection
-					$response =  wp_remote_get('http://wpcore.com/collections/'.$key.'/json', array('timeout' => 1));
-					$json =  wp_remote_retrieve_body($response);
+				$request = implode(',',$input);
 
-					// decode to array
-					$payload[] = json_decode($json,true);
-					if($payload['data']['plugins']){
-						// Go through all the plugins and add the, to the array also
-						foreach($payload['collection']['data']['plugins'] as $plugin){
-							if($payload['collection']['success']){
-								$payload['collection']['data']['plugins'][] = $plugin;
-							}
+				$response =  wp_remote_get('http://wpcore.com/api/'.$request, array('timeout' => 1));
+				$json =  wp_remote_retrieve_body($response);
+				// decode to array
+				$payload = json_decode($json,true);
+				if($payload['data']['plugins']){
+					// Go through all the plugins and add the, to the array also
+					foreach($payload['data']['plugins'] as $plugin){
+						if($payload['success']){
+							$payload['data']['plugins'][] = $plugin;
 						}
 					}
 				}
@@ -385,10 +383,12 @@ if ( ! class_exists( 'WPCore' ) ) {
 			$payload = $this->get_payload();
 			if($payload){
 				foreach( $payload as $collection ){
-					if( $collection['success'] ){
+					if( array_key_exists('success',$collection) && $collection['success'] == true ){
 						foreach( $collection['data']['plugins'] as $plugin){
 							$plugins[] = $plugin;
 						}
+					} else {
+						$plugins[] = null;
 					}
 				}
 			} else {

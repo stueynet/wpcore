@@ -16,8 +16,6 @@
 					<tbody>
 					<?php
 					$payload = $this->get_payload();
-//					print_r($payload);
-//					die();
 					if( count($payload) > 0 ):
 						foreach($payload as $collection){
 
@@ -33,7 +31,7 @@
 									<td>
 										<ul>
 											<?php
-											if( $collection['success'] ) {
+											if( $collection['success'] == true ) {
 												$count = count( $collection['data']['plugins'] );
 												$i = 1;
 												foreach( $collection['data']['plugins'] as $plugin ){

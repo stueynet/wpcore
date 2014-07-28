@@ -38,6 +38,9 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 
 == Changelog ==
+= 1.4.0 =
+* Further optimization. Now only 1 API call is made for all your collections. Dramatic speed increase in when saving collection keys.
+
 = 1.3.3 =
 * Increased cache timeout. Click clear cache button in settings to fetch latest collection info
 * Tested with Multisite
