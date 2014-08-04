@@ -22,6 +22,6 @@ if ( ! defined( 'WPINC' ) ) {
  */
 if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'lib/class-wpcore.php' );
-	require_once( plugin_dir_path( __FILE__ ) . '/lib/class-wpcore-plugin-activation.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'lib/class-wpcore-plugin-activation.php' );
 	add_action( 'plugins_loaded', array( 'wpcore', 'get_instance' ) );
 }
