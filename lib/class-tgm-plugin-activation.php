@@ -28,7 +28,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
+if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 	/**
 	 * Automatic plugin installation and activation library.
 	 *
@@ -42,14 +42,14 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 	 * @author  Thomas Griffin <thomasgriffinmedia.com>
 	 * @author  Gary Jones <gamajo.com>
 	 */
-	class WPCORE_Plugin_Activation {
+	class TGM_Plugin_Activation {
 
 		/**
 		 * Holds a copy of itself, so it can be referenced by the class name.
 		 *
 		 * @since 1.0.0
 		 *
-		 * @var WPCORE_Plugin_Activation
+		 * @var TGM_Plugin_Activation
 		 */
 		public static $instance;
 
@@ -69,7 +69,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 *
 		 * @var string
 		 */
-		public $id = 'wpcore';
+		public $id = 'tgmpa';
 
 		/**
 		 * Name of the querystring argument for the admin page.
@@ -78,7 +78,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 *
 		 * @var string
 		 */
-		public $menu = 'wpcore-install-plugins';
+		public $menu = 'tgmpa-install-plugins';
 
 		/**
 		 * Default absolute path to folder containing pre-packaged plugin zip files.
@@ -156,11 +156,11 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 
 		/**
 		 * Adds a reference of this object to $instance, populates default strings,
-		 * does the wpcore_init action hook, and hooks in the interactions to init.
+		 * does the tgmpa_init action hook, and hooks in the interactions to init.
 		 *
 		 * @since 1.0.0
 		 *
-		 * @see WPCORE_Plugin_Activation::init()
+		 * @see TGM_Plugin_Activation::init()
 		 */
 		public function __construct() {
 
@@ -171,7 +171,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 			$this->wp_version = $wp_version;
 
 			// Announce that the class is ready, and pass the object (for advanced use).
-			do_action_ref_array( 'wpcore_init', array( $this ) );
+			do_action_ref_array( 'tgmpa_init', array( $this ) );
 
 			// When the rest of WP has loaded, kick-start the rest of the class.
 			add_action( 'init', array( $this, 'init' ) );
@@ -185,37 +185,37 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 *
 		 * @since 2.0.0
 		 *
-		 * @see WPCORE_Plugin_Activation::admin_menu()
-		 * @see WPCORE_Plugin_Activation::notices()
-		 * @see WPCORE_Plugin_Activation::styles()
+		 * @see TGM_Plugin_Activation::admin_menu()
+		 * @see TGM_Plugin_Activation::notices()
+		 * @see TGM_Plugin_Activation::styles()
 		 */
 		public function init() {
 
 			// Load class strings.
 			$this->strings = array(
-				'page_title'                     => __( 'Install Required Plugins', 'wpcore' ),
-				'menu_title'                     => __( 'Install Plugins', 'wpcore' ),
-				'installing'                     => __( 'Installing Plugin: %s', 'wpcore' ),
-				'oops'                           => __( 'Something went wrong.', 'wpcore' ),
-				'notice_can_install_required'    => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.', 'wpcore' ),
-				'notice_can_install_recommended' => _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.', 'wpcore' ),
-				'notice_cannot_install'          => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.', 'wpcore' ),
-				'notice_can_activate_required'   => _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.', 'wpcore' ),
-				'notice_can_activate_recommended'=> _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.', 'wpcore' ),
-				'notice_cannot_activate'         => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.', 'wpcore' ),
-				'notice_ask_to_update'           => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.', 'wpcore' ),
-				'notice_cannot_update'           => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.', 'wpcore' ),
-				'install_link'                   => _n_noop( 'Begin installing plugin', 'Begin installing plugins', 'wpcore' ),
-				'activate_link'                  => _n_noop( 'Begin activating plugin', 'Begin activating plugins', 'wpcore' ),
-				'return'                         => __( 'Return to Required Plugins Installer', 'wpcore' ),
-				'dashboard'                      => __( 'Return to the dashboard', 'wpcore' ),
-				'plugin_activated'               => __( 'Plugin activated successfully.', 'wpcore' ),
-				'activated_successfully'         => __( 'The following plugin was activated successfully:', 'wpcore' ),
-				'complete'                       => __( 'All plugins installed and activated successfully. %1$s', 'wpcore' ),
-				'dismiss'                        => __( 'Dismiss this notice', 'wpcore' ),
+				'page_title'                     => __( 'Install Required Plugins', 'tgmpa' ),
+				'menu_title'                     => __( 'Install Plugins', 'tgmpa' ),
+				'installing'                     => __( 'Installing Plugin: %s', 'tgmpa' ),
+				'oops'                           => __( 'Something went wrong.', 'tgmpa' ),
+				'notice_can_install_required'    => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.', 'tgmpa' ),
+				'notice_can_install_recommended' => _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.', 'tgmpa' ),
+				'notice_cannot_install'          => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.', 'tgmpa' ),
+				'notice_can_activate_required'   => _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.', 'tgmpa' ),
+				'notice_can_activate_recommended'=> _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.', 'tgmpa' ),
+				'notice_cannot_activate'         => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.', 'tgmpa' ),
+				'notice_ask_to_update'           => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.', 'tgmpa' ),
+				'notice_cannot_update'           => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.', 'tgmpa' ),
+				'install_link'                   => _n_noop( 'Begin installing plugin', 'Begin installing plugins', 'tgmpa' ),
+				'activate_link'                  => _n_noop( 'Begin activating plugin', 'Begin activating plugins', 'tgmpa' ),
+				'return'                         => __( 'Return to Required Plugins Installer', 'tgmpa' ),
+				'dashboard'                      => __( 'Return to the dashboard', 'tgmpa' ),
+				'plugin_activated'               => __( 'Plugin activated successfully.', 'tgmpa' ),
+				'activated_successfully'         => __( 'The following plugin was activated successfully:', 'tgmpa' ),
+				'complete'                       => __( 'All plugins installed and activated successfully. %1$s', 'tgmpa' ),
+				'dismiss'                        => __( 'Dismiss this notice', 'tgmpa' ),
 			);
 
-			do_action( 'wpcore_register' );
+			do_action( 'tgmpa_register' );
 			// After this point, the plugins should be registered and the configuration set.
 
 			// Proceed only if we have plugins to handle.
@@ -234,7 +234,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 				add_action( 'switch_theme', array( $this, 'flush_plugins_cache' ) );
 
 				// Load admin bar in the header to remove flash when installing plugins.
-				if ( $this->is_wpcore_page() ) {
+				if ( $this->is_tgmpa_page() ) {
 					remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
 					remove_action( 'admin_footer', 'wp_admin_bar_render', 1000 );
 					add_action( 'wp_head', 'wp_admin_bar_render', 1000 );
@@ -289,7 +289,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 */
 		public function admin_init() {
 
-			if ( ! $this->is_wpcore_page() ) {
+			if ( ! $this->is_tgmpa_page() ) {
 				return;
 			}
 
@@ -321,7 +321,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 */
 		public function thickbox() {
 
-			if ( ! get_user_meta( get_current_user_id(), 'wpcore_dismissed_notice_' . $this->id, true ) ) {
+			if ( ! get_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice_' . $this->id, true ) ) {
 				add_thickbox();
 			}
 
@@ -337,8 +337,8 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @see WPCORE_Plugin_Activation::init()
-		 * @see WPCORE_Plugin_Activation::install_plugins_page()
+		 * @see TGM_Plugin_Activation::init()
+		 * @see TGM_Plugin_Activation::install_plugins_page()
 		 */
 		public function admin_menu() {
 
@@ -353,7 +353,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 				if ( ! is_plugin_active( $plugin['file_path'] ) ) {
 
 					$args = apply_filters(
-						'wpcore_admin_menu_args',
+						'tgmpa_admin_menu_args',
 						array(
 							'parent_slug'=> 'wpcore',                          // Parent Menu slug.
 							'page_title' => $this->strings['page_title'],          // Page title.
@@ -387,15 +387,15 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 			$plugin_table = new TGMPA_List_Table;
 
 			// Return early if processing a plugin installation action.
-			if ( isset( $_POST['action'] ) && 'wpcore-bulk-install' == $_POST['action'] && $plugin_table->process_bulk_actions() || $this->do_plugin_install() ) {
+			if ( isset( $_POST['action'] ) && 'tgmpa-bulk-install' == $_POST['action'] && $plugin_table->process_bulk_actions() || $this->do_plugin_install() ) {
 				return;
 			}
 
 			?>
-			<div class="wpcore wrap">
+			<div class="tgmpa wrap">
 
 				<?php if ( version_compare( $this->wp_version, '3.8', '<' ) ) {
-					screen_icon( apply_filters( 'wpcore_default_screen_icon', 'themes' ) );
+					screen_icon( apply_filters( 'tgmpa_default_screen_icon', 'themes' ) );
 				} ?>
 				<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 				<?php $plugin_table->prepare_items(); ?>
@@ -404,8 +404,8 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 					echo wp_kses_post( $this->message );
 				} ?>
 
-				<form id="wpcore-plugins" action="" method="post">
-					<input type="hidden" name="wpcore-page" value="<?php echo $this->menu; ?>" />
+				<form id="tgmpa-plugins" action="" method="post">
+					<input type="hidden" name="tgmpa-page" value="<?php echo $this->menu; ?>" />
 					<?php $plugin_table->display(); ?>
 				</form>
 
@@ -440,8 +440,8 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 			$plugin = array();
 
 			// Checks for actions from hover links to process the installation.
-			if ( isset( $_GET['plugin'] ) && ( isset( $_GET['wpcore-install'] ) && 'install-plugin' == $_GET['wpcore-install'] ) ) {
-				check_admin_referer( 'wpcore-install' );
+			if ( isset( $_GET['plugin'] ) && ( isset( $_GET['tgmpa-install'] ) && 'install-plugin' == $_GET['tgmpa-install'] ) ) {
+				check_admin_referer( 'tgmpa-install' );
 
 				$plugin['name']   = $_GET['plugin_name']; // Plugin name.
 				$plugin['slug']   = $_GET['plugin']; // Plugin slug.
@@ -455,14 +455,14 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 							'plugin'        => $plugin['slug'],
 							'plugin_name'   => $plugin['name'],
 							'plugin_source' => $plugin['source'],
-							'wpcore-install' => 'install-plugin',
+							'tgmpa-install' => 'install-plugin',
 						),
 						admin_url( 'admin.php' )
 					),
-					'wpcore-install'
+					'tgmpa-install'
 				);
 				$method = ''; // Leave blank so WP_Filesystem can populate it as necessary.
-				$fields = array( 'wpcore-install' ); // Extra fields to pass to WP_Filesystem.
+				$fields = array( 'tgmpa-install' ); // Extra fields to pass to WP_Filesystem.
 
 				if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $fields ) ) ) {
 					return true;
@@ -548,15 +548,15 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 
 				// All plugins are active, so we display the complete string and hide the plugin menu.
 				if ( empty( $complete ) ) {
-					echo '<p>' .  sprintf( $this->strings['complete'], '<a href="' . admin_url() . '" title="' . __( 'Return to the Dashboard', 'wpcore' ) . '">' . __( 'Return to the Dashboard', 'wpcore' ) . '</a>' ) . '</p>';
+					echo '<p>' .  sprintf( $this->strings['complete'], '<a href="' . admin_url() . '" title="' . __( 'Return to the Dashboard', 'tgmpa' ) . '">' . __( 'Return to the Dashboard', 'tgmpa' ) . '</a>' ) . '</p>';
 					echo '<style type="text/css">#adminmenu .wp-submenu li.current { display: none !important; }</style>';
 				}
 
 				return true;
 			}
 			// Checks for actions from hover links to process the activation.
-			elseif ( isset( $_GET['plugin'] ) && ( isset( $_GET['wpcore-activate'] ) && 'activate-plugin' == $_GET['wpcore-activate'] ) ) {
-				check_admin_referer( 'wpcore-activate', 'wpcore-activate-nonce' );
+			elseif ( isset( $_GET['plugin'] ) && ( isset( $_GET['tgmpa-activate'] ) && 'activate-plugin' == $_GET['tgmpa-activate'] ) ) {
+				check_admin_referer( 'tgmpa-activate', 'tgmpa-activate-nonce' );
 
 				// Populate $plugin array with necessary information.
 				$plugin['name']   = $_GET['plugin_name'];
@@ -603,12 +603,12 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 			global $current_screen;
 
 			// Remove nag on the install page.
-			if ( $this->is_wpcore_page() ) {
+			if ( $this->is_tgmpa_page() ) {
 				return;
 			}
 
 			// Return early if the nag message has been dismissed.
-			if ( get_user_meta( get_current_user_id(), 'wpcore_dismissed_notice_' . $this->id, true ) ) {
+			if ( get_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice_' . $this->id, true ) ) {
 				return;
 			}
 
@@ -736,40 +736,40 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 					$last_plugin = array_pop( $plugin_groups ); // Pop off last name to prep for readability.
 					$imploded    = empty( $plugin_groups ) ? '<em>' . $last_plugin . '</em>' : '<em>' . ( implode( ', ', $plugin_groups ) . '</em> and <em>' . $last_plugin . '</em>' );
 
-					$rendered .= '<p>' . sprintf( translate_nooped_plural( $this->strings[$type], $count, 'wpcore' ), $imploded, $count ) . '</p>';
+					$rendered .= '<p>' . sprintf( translate_nooped_plural( $this->strings[$type], $count, 'tgmpa' ), $imploded, $count ) . '</p>';
 				}
 
 				// Setup variables to determine if action links are needed.
-				$show_install_link  = $install_link ? '<a href="' . add_query_arg( 'page', $this->menu, admin_url( 'admin.php' ) ) . '">' . translate_nooped_plural( $this->strings['install_link'], $install_link_count, 'wpcore' ) . '</a>' : '';
-				$show_activate_link = $activate_link ? '<a href="' . add_query_arg( 'page', $this->menu, admin_url( 'admin.php' ) ) . '">' . translate_nooped_plural( $this->strings['activate_link'], $activate_link_count, 'wpcore' ) . '</a>'  : '';
+				$show_install_link  = $install_link ? '<a href="' . add_query_arg( 'page', $this->menu, admin_url( 'admin.php' ) ) . '">' . translate_nooped_plural( $this->strings['install_link'], $install_link_count, 'tgmpa' ) . '</a>' : '';
+				$show_activate_link = $activate_link ? '<a href="' . add_query_arg( 'page', $this->menu, admin_url( 'admin.php' ) ) . '">' . translate_nooped_plural( $this->strings['activate_link'], $activate_link_count, 'tgmpa' ) . '</a>'  : '';
 
 				// Define all of the action links.
 				$action_links = apply_filters(
-					'wpcore_notice_action_links',
+					'tgmpa_notice_action_links',
 					array(
 						'install'  => ( current_user_can( 'install_plugins' ) )  ? $show_install_link  : '',
 						'activate' => ( current_user_can( 'activate_plugins' ) ) ? $show_activate_link : '',
-						'dismiss'  => $this->dismissable ? '<a class="dismiss-notice" href="' . add_query_arg( 'wpcore-dismiss', 'dismiss_admin_notices' ) . '" target="_parent">' . $this->strings['dismiss'] . '</a>' : '',
+						'dismiss'  => $this->dismissable ? '<a class="dismiss-notice" href="' . add_query_arg( 'tgmpa-dismiss', 'dismiss_admin_notices' ) . '" target="_parent">' . $this->strings['dismiss'] . '</a>' : '',
 					)
 				);
 
 				$action_links = array_filter( $action_links ); // Remove any empty array items.
 				if ( $action_links ) {
-					$rendered .= apply_filters( 'wpcore_notice_rendered_action_links', '<p>' . implode( ' | ', $action_links ) . '</p>' );
+					$rendered .= apply_filters( 'tgmpa_notice_rendered_action_links', '<p>' . implode( ' | ', $action_links ) . '</p>' );
 				}
 
 				// Register the nag messages and prepare them to be processed.
 				$nag_class = version_compare( $this->wp_version, '3.8', '<' ) ? 'updated' : 'update-nag';
 				if ( ! empty( $this->strings['nag_type'] ) ) {
-					add_settings_error( 'wpcore', 'wpcore', $rendered, sanitize_html_class( strtolower( $this->strings['nag_type'] ) ) );
+					add_settings_error( 'tgmpa', 'tgmpa', $rendered, sanitize_html_class( strtolower( $this->strings['nag_type'] ) ) );
 				} else {
-					add_settings_error( 'wpcore', 'wpcore', $rendered, $nag_class );
+					add_settings_error( 'tgmpa', 'tgmpa', $rendered, $nag_class );
 				}
 			}
 
 			// Admin options pages already output settings_errors, so this is to avoid duplication.
 			if ( 'options-general' !== $current_screen->parent_base ) {
-				settings_errors( 'wpcore' );
+				settings_errors( 'tgmpa' );
 			}
 
 		}
@@ -783,8 +783,8 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 */
 		public function dismiss() {
 
-			if ( isset( $_GET['wpcore-dismiss'] ) ) {
-				update_user_meta( get_current_user_id(), 'wpcore_dismissed_notice_' . $this->id, 1 );
+			if ( isset( $_GET['tgmpa-dismiss'] ) ) {
+				update_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice_' . $this->id, 1 );
 			}
 
 		}
@@ -851,7 +851,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		public function actions( $install_actions ) {
 
 			// Remove action links on the TGMPA install page.
-			if ( $this->is_wpcore_page() ) {
+			if ( $this->is_tgmpa_page() ) {
 				return false;
 			}
 
@@ -939,7 +939,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 *
 		 * @return boolean True when on the TGMPA page, false otherwise.
 		 */
-		protected function is_wpcore_page() {
+		protected function is_tgmpa_page() {
 
 			if ( isset( $_GET['page'] ) && $this->menu === $_GET['page'] ) {
 				return true;
@@ -959,7 +959,7 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 */
 		public function update_dismiss() {
 
-			delete_user_meta( get_current_user_id(), 'wpcore_dismissed_notice_' . $this->id );
+			delete_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice_' . $this->id );
 
 		}
 
@@ -1028,12 +1028,12 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 		 *
 		 * @since 2.4.0
 		 *
-		 * @return object The WPCORE_Plugin_Activation object.
+		 * @return object The TGM_Plugin_Activation object.
 		 */
 		public static function get_instance() {
 
-			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof WPCORE_Plugin_Activation ) ) {
-				self::$instance = new WPCORE_Plugin_Activation();
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof TGM_Plugin_Activation ) ) {
+				self::$instance = new TGM_Plugin_Activation();
 			}
 
 			return self::$instance;
@@ -1043,11 +1043,11 @@ if ( ! class_exists( 'WPCORE_Plugin_Activation' ) ) {
 	}
 
 	// Ensure only one instance of the class is ever invoked.
-	$wpcore = WPCORE_Plugin_Activation::get_instance();
+	$tgmpa = TGM_Plugin_Activation::get_instance();
 
 }
 
-if ( ! function_exists( 'wpcore' ) ) {
+if ( ! function_exists( 'tgmpa' ) ) {
 	/**
 	 * Helper function to register a collection of required plugins.
 	 *
@@ -1057,14 +1057,14 @@ if ( ! function_exists( 'wpcore' ) ) {
 	 * @param array $plugins An array of plugin arrays.
 	 * @param array $config  Optional. An array of configuration values.
 	 */
-	function wpcore( $plugins, $config = array() ) {
+	function tgmpa( $plugins, $config = array() ) {
 
 		foreach ( $plugins as $plugin ) {
-			WPCORE_Plugin_Activation::$instance->register( $plugin );
+			TGM_Plugin_Activation::$instance->register( $plugin );
 		}
 
 		if ( $config ) {
-			WPCORE_Plugin_Activation::$instance->config( $config );
+			TGM_Plugin_Activation::$instance->config( $config );
 		}
 
 	}
@@ -1104,7 +1104,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 * References parent constructor and sets defaults for class.
 		 *
 		 * The constructor also grabs a copy of $instance from the TGMPA class
-		 * and stores it in the global object WPCORE_Plugin_Activation::$instance.
+		 * and stores it in the global object TGM_Plugin_Activation::$instance.
 		 *
 		 * @since 2.2.0
 		 */
@@ -1131,15 +1131,15 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		protected function _gather_plugin_data() {
 
 			// Load thickbox for plugin links.
-			WPCORE_Plugin_Activation::$instance->admin_init();
-			WPCORE_Plugin_Activation::$instance->thickbox();
+			TGM_Plugin_Activation::$instance->admin_init();
+			TGM_Plugin_Activation::$instance->thickbox();
 
 			// Prep variables for use and grab list of all installed plugins.
 			$table_data        = array();
 			$i                 = 0;
 			$installed_plugins = get_plugins();
 
-			foreach ( WPCORE_Plugin_Activation::$instance->plugins as $plugin ) {
+			foreach ( TGM_Plugin_Activation::$instance->plugins as $plugin ) {
 				if ( is_plugin_active( $plugin['file_path'] ) || ( isset( $plugin['is_callable'] ) && is_callable( $plugin['is_callable'] ) ) ) {
 					continue; // No need to display plugins if they are installed and activated.
 				}
@@ -1178,29 +1178,29 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				if ( ! empty( $plugin['source'] ) ) {
 					// The plugin must be from a private repository.
 					if ( preg_match( '|^http(s)?://|', $plugin['source'] ) ) {
-						$table_data[$i]['source'] = __( 'Private Repository', 'wpcore' );
+						$table_data[$i]['source'] = __( 'Private Repository', 'tgmpa' );
 						// The plugin is pre-packaged with the theme.
 					} else {
-						$table_data[$i]['source'] = __( 'Pre-Packaged', 'wpcore' );
+						$table_data[$i]['source'] = __( 'Pre-Packaged', 'tgmpa' );
 					}
 				}
 				// The plugin is from the WordPress repository.
 				else {
-					$table_data[$i]['source'] = __( 'WordPress Repository', 'wpcore' );
+					$table_data[$i]['source'] = __( 'WordPress Repository', 'tgmpa' );
 				}
 
-				$table_data[$i]['type'] = isset( $plugin['required'] ) && $plugin['required'] ? __( 'Required', 'wpcore' ) : __( 'Recommended', 'wpcore' );
+				$table_data[$i]['type'] = isset( $plugin['required'] ) && $plugin['required'] ? __( 'Required', 'tgmpa' ) : __( 'Recommended', 'tgmpa' );
 
 				if ( ! isset( $installed_plugins[$plugin['file_path']] ) ) {
-					$table_data[$i]['status'] = sprintf( '%1$s', __( 'Not Installed', 'wpcore' ) );
+					$table_data[$i]['status'] = sprintf( '%1$s', __( 'Not Installed', 'tgmpa' ) );
 				} elseif ( is_plugin_inactive( $plugin['file_path'] ) ) {
-					$table_data[$i]['status'] = sprintf( '%1$s', __( 'Installed But Not Activated', 'wpcore' ) );
+					$table_data[$i]['status'] = sprintf( '%1$s', __( 'Installed But Not Activated', 'tgmpa' ) );
 				}
 
 				$table_data[$i]['file_path'] = $plugin['file_path'];
 				$table_data[$i]['url']       = isset( $plugin['source'] ) ? $plugin['source'] : 'repo';
 
-				$table_data[$i] = apply_filters( 'wpcore_table_data_item', $table_data[$i], $plugin );
+				$table_data[$i] = apply_filters( 'tgmpa_table_data_item', $table_data[$i], $plugin );
 
 				$i++;
 			}
@@ -1236,7 +1236,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 		/**
 		 * Retrieve plugin data, given the plugin name. Taken from the
-		 * WPCORE_Plugin_Activation class.
+		 * TGM_Plugin_Activation class.
 		 *
 		 * Loops through the registered plugins looking for $name. If it finds it,
 		 * it returns the $data from that plugin. Otherwise, returns false.
@@ -1249,7 +1249,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 */
 		protected function _get_plugin_data_from_name( $name, $data = 'slug' ) {
 
-			foreach ( WPCORE_Plugin_Activation::$instance->plugins as $plugin => $values ) {
+			foreach ( TGM_Plugin_Activation::$instance->plugins as $plugin => $values ) {
 				if ( $name == $values['name'] && isset( $values[$data] ) ) {
 					return $values[$data];
 				}
@@ -1296,19 +1296,19 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 			if ( ! isset( $installed_plugins[$item['file_path']] ) ) {
 				$actions = array(
 					'install' => sprintf(
-						'<a href="%1$s" title="' . __( 'Install', 'wpcore' ) . ' %2$s">' . __( 'Install', 'wpcore' ) . '</a>',
+						'<a href="%1$s" title="' . __( 'Install', 'tgmpa' ) . ' %2$s">' . __( 'Install', 'tgmpa' ) . '</a>',
 						wp_nonce_url(
 							add_query_arg(
 								array(
-									'page'          => WPCORE_Plugin_Activation::$instance->menu,
+									'page'          => TGM_Plugin_Activation::$instance->menu,
 									'plugin'        => $item['slug'],
 									'plugin_name'   => $item['sanitized_plugin'],
 									'plugin_source' => $item['url'],
-									'wpcore-install' => 'install-plugin',
+									'tgmpa-install' => 'install-plugin',
 								),
 								admin_url( 'admin.php' )
 							),
-							'wpcore-install'
+							'tgmpa-install'
 						),
 						$item['sanitized_plugin']
 					),
@@ -1318,15 +1318,15 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 			elseif ( is_plugin_inactive( $item['file_path'] ) ) {
 				$actions = array(
 					'activate' => sprintf(
-						'<a href="%1$s" title="' . __( 'Activate', 'wpcore' ) . ' %2$s">' . __( 'Activate', 'wpcore' ) . '</a>',
+						'<a href="%1$s" title="' . __( 'Activate', 'tgmpa' ) . ' %2$s">' . __( 'Activate', 'tgmpa' ) . '</a>',
 						add_query_arg(
 							array(
-								'page'                 => WPCORE_Plugin_Activation::$instance->menu,
+								'page'                 => TGM_Plugin_Activation::$instance->menu,
 								'plugin'               => $item['slug'],
 								'plugin_name'          => $item['sanitized_plugin'],
 								'plugin_source'        => $item['url'],
-								'wpcore-activate'       => 'activate-plugin',
-								'wpcore-activate-nonce' => wp_create_nonce( 'wpcore-activate' ),
+								'tgmpa-activate'       => 'activate-plugin',
+								'tgmpa-activate-nonce' => wp_create_nonce( 'tgmpa-activate' ),
 							),
 							admin_url( 'admin.php' )
 						),
@@ -1367,7 +1367,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		 */
 		public function no_items() {
 
-			printf( __( 'No plugins to install or activate. <a href="%1$s" title="Return to the Dashboard">Return to the Dashboard</a>', 'wpcore' ), admin_url() );
+			printf( __( 'No plugins to install or activate. <a href="%1$s" title="Return to the Dashboard">Return to the Dashboard</a>', 'tgmpa' ), admin_url() );
 			echo '<style type="text/css">#adminmenu .wp-submenu li.current { display: none !important; }</style>';
 
 		}
@@ -1383,13 +1383,13 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 			$columns = array(
 				'cb'     => '<input type="checkbox" />',
-				'plugin' => __( 'Plugin', 'wpcore' ),
-				'source' => __( 'Source', 'wpcore' ),
-				'type'   => __( 'Type', 'wpcore' ),
-				'status' => __( 'Status', 'wpcore' )
+				'plugin' => __( 'Plugin', 'tgmpa' ),
+				'source' => __( 'Source', 'tgmpa' ),
+				'type'   => __( 'Type', 'tgmpa' ),
+				'status' => __( 'Status', 'tgmpa' )
 			);
 
-			return apply_filters( 'wpcore_table_columns', $columns );
+			return apply_filters( 'tgmpa_table_columns', $columns );
 
 		}
 
@@ -1404,8 +1404,8 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		public function get_bulk_actions() {
 
 			$actions = array(
-				'wpcore-bulk-install'  => __( 'Install', 'wpcore' ),
-				'wpcore-bulk-activate' => __( 'Activate', 'wpcore' ),
+				'tgmpa-bulk-install'  => __( 'Install', 'tgmpa' ),
+				'tgmpa-bulk-activate' => __( 'Activate', 'tgmpa' ),
 			);
 
 			return $actions;
@@ -1424,7 +1424,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 		public function process_bulk_actions() {
 
 			// Bulk installation process.
-			if ( 'wpcore-bulk-install' === $this->current_action() ) {
+			if ( 'tgmpa-bulk-install' === $this->current_action() ) {
 				check_admin_referer( 'bulk-' . $this->_args['plural'] );
 
 				// Prep variables to be populated.
@@ -1514,7 +1514,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 				// No need to proceed further if we have no plugins to install.
 				if ( empty( $plugin_installs ) ) {
-					echo '<div id="message" class="error"><p>' . __( 'No plugins are available to be installed at this time.', 'wpcore' ) . '</p></div>';
+					echo '<div id="message" class="error"><p>' . __( 'No plugins are available to be installed at this time.', 'tgmpa' ) . '</p></div>';
 					return false;
 				}
 
@@ -1532,8 +1532,8 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				$url = wp_nonce_url(
 					add_query_arg(
 						array(
-							'page'          => WPCORE_Plugin_Activation::$instance->menu,
-							'wpcore-action'  => 'install-selected',
+							'page'          => TGM_Plugin_Activation::$instance->menu,
+							'tgmpa-action'  => 'install-selected',
 							'plugins'       => urlencode( implode( ',', $plugins ) ),
 							'plugin_paths'  => urlencode( implode( ',', $plugin_paths ) ),
 							'plugin_names'  => urlencode( implode( ',', $plugin_names ) ),
@@ -1562,15 +1562,15 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				$sources      = array();
 				$install_path = array();
 
-				// Loop through each plugin to install and try to grab information from WordPress API, if not create 'wpcore-empty' scalar.
+				// Loop through each plugin to install and try to grab information from WordPress API, if not create 'tgmpa-empty' scalar.
 				$i = 0;
 				foreach ( $plugin_installs as $plugin ) {
-					$api[$i] = plugins_api( 'plugin_information', array( 'slug' => $plugin, 'fields' => array( 'sections' => false ) ) ) ? plugins_api( 'plugin_information', array( 'slug' => $plugin, 'fields' => array( 'sections' => false ) ) ) : (object) $api[$i] = 'wpcore-empty';
+					$api[$i] = plugins_api( 'plugin_information', array( 'slug' => $plugin, 'fields' => array( 'sections' => false ) ) ) ? plugins_api( 'plugin_information', array( 'slug' => $plugin, 'fields' => array( 'sections' => false ) ) ) : (object) $api[$i] = 'tgmpa-empty';
 					$i++;
 				}
 
 				if ( is_wp_error( $api ) ) {
-					wp_die( WPCORE_Plugin_Activation::$instance->strings['oops'] . var_dump( $api ) );
+					wp_die( TGM_Plugin_Activation::$instance->strings['oops'] . var_dump( $api ) );
 				}
 
 				// Capture download links from $api or set install link to pre-packaged/private repo.
@@ -1581,17 +1581,17 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				}
 
 				// Finally, all the data is prepared to be sent to the installer.
-				$url   = add_query_arg( array( 'page' => WPCORE_Plugin_Activation::$instance->menu ), admin_url( 'admin.php' ) );
+				$url   = add_query_arg( array( 'page' => TGM_Plugin_Activation::$instance->menu ), admin_url( 'admin.php' ) );
 				$nonce = 'bulk-plugins';
 				$names = $plugin_names;
 
-				// Create a new instance of WPCORE_Bulk_Installer.
-				$installer = new WPCORE_Bulk_Installer( $skin = new WPCORE_Bulk_Installer_Skin( compact( 'url', 'nonce', 'names' ) ) );
+				// Create a new instance of TGM_Bulk_Installer.
+				$installer = new TGM_Bulk_Installer( $skin = new TGM_Bulk_Installer_Skin( compact( 'url', 'nonce', 'names' ) ) );
 
 				// Wrap the install process with the appropriate HTML.
-				echo '<div class="wpcore wrap">';
-				if ( version_compare( WPCORE_Plugin_Activation::$instance->wp_version, '3.8', '<' ) ) {
-					screen_icon( apply_filters( 'wpcore_default_screen_icon', 'themes' ) );
+				echo '<div class="tgmpa wrap">';
+				if ( version_compare( TGM_Plugin_Activation::$instance->wp_version, '3.8', '<' ) ) {
+					screen_icon( apply_filters( 'tgmpa_default_screen_icon', 'themes' ) );
 				}
 				echo '<h2>' . esc_html( get_admin_page_title() ) . '</h2>';
 				// Process the bulk installation submissions.
@@ -1602,7 +1602,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 			}
 
 			// Bulk activation process.
-			if ( 'wpcore-bulk-activate' === $this->current_action() ) {
+			if ( 'tgmpa-bulk-activate' === $this->current_action() ) {
 				check_admin_referer( 'bulk-' . $this->_args['plural'] );
 
 				// Grab plugin data from $_POST.
@@ -1622,7 +1622,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 
 				// Return early if there are no plugins to activate.
 				if ( empty( $plugins_to_activate ) ) {
-					echo '<div id="message" class="error"><p>' . __( 'No plugins are available to be activated at this time.', 'wpcore' ) . '</p></div>';
+					echo '<div id="message" class="error"><p>' . __( 'No plugins are available to be activated at this time.', 'tgmpa' ) . '</p></div>';
 					return false;
 				}
 
@@ -1644,7 +1644,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				if ( is_wp_error( $activate ) ) {
 					echo '<div id="message" class="error"><p>' . $activate->get_error_message() . '</p></div>';
 				} else {
-					printf( '<div id="message" class="updated"><p>%1$s %2$s.</p></div>', _n( 'The following plugin was activated successfully:', 'The following plugins were activated successfully:', $count, 'wpcore' ), $imploded );
+					printf( '<div id="message" class="updated"><p>%1$s %2$s.</p></div>', _n( 'The following plugin was activated successfully:', 'The following plugins were activated successfully:', $count, 'tgmpa' ), $imploded );
 				}
 
 				// Update recently activated plugins option.
@@ -1697,13 +1697,13 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
  *
  * @since 2.2.0
  */
-add_action( 'admin_init', 'wpcore_load_bulk_installer' );
-function wpcore_load_bulk_installer() {
+add_action( 'admin_init', 'tgmpa_load_bulk_installer' );
+function tgmpa_load_bulk_installer() {
 
-	if ( ! class_exists( 'WP_Upgrader' ) && ( isset( $_GET['page'] ) && WPCORE_Plugin_Activation::$instance->menu === $_GET['page'] ) ) {
+	if ( ! class_exists( 'WP_Upgrader' ) && ( isset( $_GET['page'] ) && TGM_Plugin_Activation::$instance->menu === $_GET['page'] ) ) {
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-		if ( ! class_exists( 'WPCORE_Bulk_Installer' ) ) {
+		if ( ! class_exists( 'TGM_Bulk_Installer' ) ) {
 			/**
 			 * Installer class to handle bulk plugin installations.
 			 *
@@ -1716,7 +1716,7 @@ function wpcore_load_bulk_installer() {
 			 * @author  Thomas Griffin <thomasgriffinmedia.com>
 			 * @author  Gary Jones <gamajo.com>
 			 */
-			class WPCORE_Bulk_Installer extends WP_Upgrader {
+			class TGM_Bulk_Installer extends WP_Upgrader {
 
 				/**
 				 * Holds result of bulk plugin installation.
@@ -1752,7 +1752,7 @@ function wpcore_load_bulk_installer() {
 
 					// Set install strings and automatic activation strings (if config option is set to true).
 					$this->install_strings();
-					if ( WPCORE_Plugin_Activation::$instance->is_automatic ) {
+					if ( TGM_Plugin_Activation::$instance->is_automatic ) {
 						$this->activate_strings();
 					}
 
@@ -1898,7 +1898,7 @@ function wpcore_load_bulk_installer() {
 					}
 
 					// Only process the activation of installed plugins if the automatic flag is set to true.
-					if ( WPCORE_Plugin_Activation::$instance->is_automatic ) {
+					if ( TGM_Plugin_Activation::$instance->is_automatic ) {
 						// Flush plugins cache so we can make sure that the installed plugins list is always up to date.
 						wp_cache_flush();
 
@@ -1907,7 +1907,7 @@ function wpcore_load_bulk_installer() {
 						$activate    = activate_plugin( $plugin_info );
 
 						// Re-populate the file path now that the plugin has been installed and activated.
-						WPCORE_Plugin_Activation::$instance->populate_file_path();
+						TGM_Plugin_Activation::$instance->populate_file_path();
 
 						// Set correct strings based on results.
 						if ( is_wp_error( $activate ) ) {
@@ -1940,12 +1940,12 @@ function wpcore_load_bulk_installer() {
 				 */
 				public function install_strings() {
 
-					$this->strings['no_package']          = __( 'Install package not available.', 'wpcore' );
-					$this->strings['downloading_package'] = __( 'Downloading install package from <span class="code">%s</span>&#8230;', 'wpcore' );
-					$this->strings['unpack_package']      = __( 'Unpacking the package&#8230;', 'wpcore' );
-					$this->strings['installing_package']  = __( 'Installing the plugin&#8230;', 'wpcore' );
-					$this->strings['process_failed']      = __( 'Plugin install failed.', 'wpcore' );
-					$this->strings['process_success']     = __( 'Plugin installed successfully.', 'wpcore' );
+					$this->strings['no_package']          = __( 'Install package not available.', 'tgmpa' );
+					$this->strings['downloading_package'] = __( 'Downloading install package from <span class="code">%s</span>&#8230;', 'tgmpa' );
+					$this->strings['unpack_package']      = __( 'Unpacking the package&#8230;', 'tgmpa' );
+					$this->strings['installing_package']  = __( 'Installing the plugin&#8230;', 'tgmpa' );
+					$this->strings['process_failed']      = __( 'Plugin install failed.', 'tgmpa' );
+					$this->strings['process_success']     = __( 'Plugin installed successfully.', 'tgmpa' );
 
 				}
 
@@ -1956,8 +1956,8 @@ function wpcore_load_bulk_installer() {
 				 */
 				public function activate_strings() {
 
-					$this->strings['activation_failed']  = __( 'Plugin activation failed.', 'wpcore' );
-					$this->strings['activation_success'] = __( 'Plugin activated successfully.', 'wpcore' );
+					$this->strings['activation_failed']  = __( 'Plugin activation failed.', 'tgmpa' );
+					$this->strings['activation_success'] = __( 'Plugin activated successfully.', 'tgmpa' );
 
 				}
 
@@ -1995,7 +1995,7 @@ function wpcore_load_bulk_installer() {
 			}
 		}
 
-		if ( ! class_exists( 'WPCORE_Bulk_Installer_Skin' ) ) {
+		if ( ! class_exists( 'TGM_Bulk_Installer_Skin' ) ) {
 			/**
 			 * Installer skin to set strings for the bulk plugin installations..
 			 *
@@ -2008,7 +2008,7 @@ function wpcore_load_bulk_installer() {
 			 * @author  Thomas Griffin <thomasgriffinmedia.com>
 			 * @author  Gary Jones <gamajo.com>
 			 */
-			class WPCORE_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
+			class TGM_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
 
 				/**
 				 * Holds plugin info for each individual plugin installation.
@@ -2069,20 +2069,20 @@ function wpcore_load_bulk_installer() {
 				public function add_strings() {
 
 					// Automatic activation strings.
-					if ( WPCORE_Plugin_Activation::$instance->is_automatic ) {
-						$this->upgrader->strings['skin_upgrade_start']        = __( 'The installation and activation process is starting. This process may take a while on some hosts, so please be patient.', 'wpcore' );
-						$this->upgrader->strings['skin_update_successful']    = __( '%1$s installed and activated successfully.', 'wpcore' ) . ' <a onclick="%2$s" href="#" class="hide-if-no-js"><span>' . __( 'Show Details', 'wpcore' ) . '</span><span class="hidden">' . __( 'Hide Details', 'wpcore' ) . '</span>.</a>';
-						$this->upgrader->strings['skin_upgrade_end']          = __( 'All installations and activations have been completed.', 'wpcore' );
-						$this->upgrader->strings['skin_before_update_header'] = __( 'Installing and Activating Plugin %1$s (%2$d/%3$d)', 'wpcore' );
+					if ( TGM_Plugin_Activation::$instance->is_automatic ) {
+						$this->upgrader->strings['skin_upgrade_start']        = __( 'The installation and activation process is starting. This process may take a while on some hosts, so please be patient.', 'tgmpa' );
+						$this->upgrader->strings['skin_update_successful']    = __( '%1$s installed and activated successfully.', 'tgmpa' ) . ' <a onclick="%2$s" href="#" class="hide-if-no-js"><span>' . __( 'Show Details', 'tgmpa' ) . '</span><span class="hidden">' . __( 'Hide Details', 'tgmpa' ) . '</span>.</a>';
+						$this->upgrader->strings['skin_upgrade_end']          = __( 'All installations and activations have been completed.', 'tgmpa' );
+						$this->upgrader->strings['skin_before_update_header'] = __( 'Installing and Activating Plugin %1$s (%2$d/%3$d)', 'tgmpa' );
 					}
 					// Default installation strings.
 					else {
-						$this->upgrader->strings['skin_upgrade_start']        = __( 'The installation process is starting. This process may take a while on some hosts, so please be patient.', 'wpcore' );
-						$this->upgrader->strings['skin_update_failed_error']  = __( 'An error occurred while installing %1$s: <strong>%2$s</strong>.', 'wpcore' );
-						$this->upgrader->strings['skin_update_failed']        = __( 'The installation of %1$s failed.', 'wpcore' );
-						$this->upgrader->strings['skin_update_successful']    = __( '%1$s installed successfully.', 'wpcore' ) . ' <a onclick="%2$s" href="#" class="hide-if-no-js"><span>' . __( 'Show Details', 'wpcore' ) . '</span><span class="hidden">' . __( 'Hide Details', 'wpcore' ) . '</span>.</a>';
-						$this->upgrader->strings['skin_upgrade_end']          = __( 'All installations have been completed.', 'wpcore' );
-						$this->upgrader->strings['skin_before_update_header'] = __( 'Installing Plugin %1$s (%2$d/%3$d)', 'wpcore' );
+						$this->upgrader->strings['skin_upgrade_start']        = __( 'The installation process is starting. This process may take a while on some hosts, so please be patient.', 'tgmpa' );
+						$this->upgrader->strings['skin_update_failed_error']  = __( 'An error occurred while installing %1$s: <strong>%2$s</strong>.', 'tgmpa' );
+						$this->upgrader->strings['skin_update_failed']        = __( 'The installation of %1$s failed.', 'tgmpa' );
+						$this->upgrader->strings['skin_update_successful']    = __( '%1$s installed successfully.', 'tgmpa' ) . ' <a onclick="%2$s" href="#" class="hide-if-no-js"><span>' . __( 'Show Details', 'tgmpa' ) . '</span><span class="hidden">' . __( 'Hide Details', 'tgmpa' ) . '</span>.</a>';
+						$this->upgrader->strings['skin_upgrade_end']          = __( 'All installations have been completed.', 'tgmpa' );
+						$this->upgrader->strings['skin_before_update_header'] = __( 'Installing Plugin %1$s (%2$d/%3$d)', 'tgmpa' );
 					}
 
 				}
@@ -2157,9 +2157,9 @@ function wpcore_load_bulk_installer() {
 
 					// Display message based on if all plugins are now active or not.
 					$complete = array();
-					foreach ( WPCORE_Plugin_Activation::$instance->plugins as $plugin ) {
+					foreach ( TGM_Plugin_Activation::$instance->plugins as $plugin ) {
 						if ( ! is_plugin_active( $plugin['file_path'] ) ) {
-							echo '<p><a href="' . add_query_arg( 'page', WPCORE_Plugin_Activation::$instance->menu, admin_url( 'admin.php' ) ) . '" title="' . esc_attr( WPCORE_Plugin_Activation::$instance->strings['return'] ) . '" target="_parent">' . WPCORE_Plugin_Activation::$instance->strings['return'] . '</a></p>';
+							echo '<p><a href="' . add_query_arg( 'page', TGM_Plugin_Activation::$instance->menu, admin_url( 'admin.php' ) ) . '" title="' . esc_attr( TGM_Plugin_Activation::$instance->strings['return'] ) . '" target="_parent">' . TGM_Plugin_Activation::$instance->strings['return'] . '</a></p>';
 							$complete[] = $plugin;
 							break;
 						}
@@ -2174,7 +2174,7 @@ function wpcore_load_bulk_installer() {
 
 					// All plugins are active, so we display the complete string and hide the menu to protect users.
 					if ( empty( $complete ) ) {
-						echo '<p>' .  sprintf( WPCORE_Plugin_Activation::$instance->strings['complete'], '<a href="' . admin_url() . '" title="' . __( 'Return to the Dashboard', 'wpcore' ) . '">' . __( 'Return to the Dashboard', 'wpcore' ) . '</a>' ) . '</p>';
+						echo '<p>' .  sprintf( TGM_Plugin_Activation::$instance->strings['complete'], '<a href="' . admin_url() . '" title="' . __( 'Return to the Dashboard', 'tgmpa' ) . '">' . __( 'Return to the Dashboard', 'tgmpa' ) . '</a>' ) . '</p>';
 						echo '<style type="text/css">#adminmenu .wp-submenu li.current { display: none !important; }</style>';
 					}
 

@@ -65,7 +65,7 @@ if ( ! class_exists( 'WPCore' ) ) {
 			add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
 			// Main functions
-			add_action( 'wpcore_register', array( $this, 'wpcore_register_required_plugins') );
+			add_action( 'tgmpa_register', array( $this, 'wpcore_register_required_plugins') );
 
 			// Admin stuff
 			// Add the options page and menu item.
@@ -254,7 +254,7 @@ if ( ! class_exists( 'WPCore' ) ) {
 			$plugins = $this->get_plugins_from_payload();
 
 			// convert to object
-			$theme_text_domain = 'wpcore';
+			$theme_text_domain = 'tgmpa';
 
 			/**
 			 * Array of configuration settings. Amend each line as needed.
@@ -295,7 +295,7 @@ if ( ! class_exists( 'WPCore' ) ) {
 				)
 			);
 			if(isset($plugins)){
-				wpcore( $plugins, $config );
+				tgmpa( $plugins, $config );
 			}
 		}
 
