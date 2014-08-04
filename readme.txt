@@ -38,6 +38,9 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 
 == Changelog ==
+= 1.4.1 =
+* Changed classname from tom to wpcore to avoid conflicts with other themes and plugins that use the tom activation class.
+
 = 1.4.0 =
 * Further optimization. Now only 1 API call is made for all your collections. Dramatic speed increase in when saving collection keys.
 
