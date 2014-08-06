@@ -328,7 +328,10 @@ if ( ! class_exists( 'WPCore' ) ) {
 		function save_keys($input){
 
 			// every time we save keys we need to generate the payload
-			$this->generate_payload($input);
+
+			$clean = sanitize_text_field($input);
+
+			$this->generate_payload($clean);
 			return $input;
 		}
 

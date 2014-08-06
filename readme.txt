@@ -6,7 +6,7 @@ Author URI: http://wpcore.com
 Author: Stuart Starr
 Contributors: stueynet
 Requires at least: 3.5
-Tested up to: 3.9.1
+Tested up to: 3.9.2
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -38,6 +38,10 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 
 == Changelog ==
+= 1.4.6 =
+* Tested on WordPress 3.9.2. Works!
+* Added some more input sanity(ization)
+
 = 1.4.5 =
 * Switched to ssl. Changed timeout.
 
