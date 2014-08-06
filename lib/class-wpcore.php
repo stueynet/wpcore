@@ -355,7 +355,7 @@ if ( ! class_exists( 'WPCore' ) ) {
 			if($input){
 				$request = implode(',',$input);
 
-				$response =  wp_remote_get('http://wpcore.com/api/'.$request, array('timeout' => 1));
+				$response =  wp_remote_get('https://wpcore.com/api/'.$request, array('timeout' => 5, 'sslverify' => false));
 				$json =  wp_remote_retrieve_body($response);
 				// decode to array
 				$payload = json_decode($json,true);
