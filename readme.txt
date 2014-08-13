@@ -38,6 +38,9 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 
 == Changelog ==
+= 1.4.7 =
+* Export active plugins to a WPCore.com collection.
+
 = 1.4.6 =
 * Tested on WordPress 3.9.2. Works!
 * Added some more input sanity(ization)

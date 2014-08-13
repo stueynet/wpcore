@@ -79,6 +79,15 @@
 		</div>
 		<div class="unit one-quarter metabox-holder">
 			<div class="postbox">
+				<h3>Export plugins to a collection</h3>
+				<div class="inside">
+					<div class="main">
+						<p>Quickly drop all the active plugins on this site into a new collection at WPCore.com. Only active plugins from WordPress.org will be included.</p>
+						<a href="<?php echo $this->wpcore_export_link(); ?>" class="button button-large" target="_blank">Export</a>
+					</div>
+				</div>
+			</div>
+			<div class="postbox">
 				<h3>A little more guidance</h3>
 				<div class="inside">
 					<div class="main">

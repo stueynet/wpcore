@@ -5,6 +5,9 @@
  * @link		http://stuey.net
  */
 if ( ! class_exists( 'WPCore' ) ) {
+	/**
+	 * Class WPCore
+	 */
 	class WPCore {
 
 		/**
@@ -422,6 +425,22 @@ if ( ! class_exists( 'WPCore' ) ) {
 
 
 			include( dirname(__FILE__).'/../views/settings.php' );
+		}
+
+		/**
+		 * Return the link to create a collection with active plugins on this site
+		 */
+		public function wpcore_export_link(){
+			$active = get_option('active_plugins');
+			$pstring = array();
+			foreach($active as $pl){
+				preg_match('/([^\/]+)/', $pl, $matches);
+				$pstring[] = $matches[1];
+			}
+			$query = implode(',', $pstring);
+
+			return 'https://wpcore.com/collections/create/'.$query;
+
 		}
 
 		/**
