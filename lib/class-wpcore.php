@@ -450,7 +450,7 @@ if ( ! class_exists( 'WPCore' ) ) {
 
 			return array_merge(
 				array(
-					'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+					'settings' => '<a href="' . admin_url( 'admin.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
 				),
 				$links
 			);
