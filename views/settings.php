@@ -36,7 +36,7 @@
 												$i = 1;
 												foreach( $collection['data']['plugins'] as $plugin ){
 													?>
-													<a href="http://localhost/wpcore/demo/wp-admin/plugin-install.php?tab=plugin-information&plugin=<?php echo $plugin['slug']; ?>&TB_iframe=true&width=640&height=500" class="thickbox" title="<?php echo $plugin['name']; ?>"><?php echo $plugin['name']; ?></a>
+													<a href="<?php echo get_admin_url(); ?>plugin-install.php?tab=plugin-information&plugin=<?php echo $plugin['slug']; ?>&TB_iframe=true&width=640&height=500" class="thickbox" title="<?php echo $plugin['name']; ?>"><?php echo $plugin['name']; ?></a>
 													<?php
 													if( $i != $count )
 														echo ', ';
@@ -65,7 +65,10 @@
 				</p>
 				<?php if( count( $payload ) ):?>
 					<input type="button" id="wpcore_addrow" class="button button-large" value="Add another collection key" />
-					<a href="admin.php?page=wpcore-install-plugins" class="button button-large float-right">Install Plugins</a>
+					<a href="admin.php?page=<?php echo TGM_Plugin_Activation::get_instance()->menu; ?>" class="button button-large float-right">Install Plugins</a>
+
+
+
 				<?php else: ?>
 					<input type="button" id="wpcore_addrow" class="button button-large" value="Add a collection key" />
 				<?php endif; ?>

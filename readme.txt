@@ -38,6 +38,9 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 
 == Changelog ==
+= 1.4.8 =
+* Fixed conflict when other plugins or themes use the TGM activation plugin. The install plugins button always works now.
+
 = 1.4.7 =
 * Export active plugins to a WPCore.com collection.
 
