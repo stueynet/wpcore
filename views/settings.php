@@ -25,7 +25,7 @@
 										<h3><?php echo isset( $collection['data']['name'] ) ? $collection['data']['name'] : 'Bad Key'; ?></h3>
 										<p><input type="text" id="wpcore_keys" name="wpcore_keys[]" value="<?php echo $collection['data']['key']; ?>" required="required"></p>
 										<?php if( isset($collection['data']['name']) ): ?>
-											<a href="http://wpcore.com/collections/<?php echo $collection['data']['key']; ?>" target="_blank">View on WPCore.com</a>
+											<a href="https://wpcore.com/collections/<?php echo $collection['data']['key']; ?>" target="_blank">View on WPCore.com</a>
 										<?php endif; ?>
 									</td>
 									<td>
@@ -94,9 +94,9 @@
 				<h3>A little more guidance</h3>
 				<div class="inside">
 					<div class="main">
-						<p>On this page you can store your collection keys. You can create and manage your collections at <a href="http://wpcore.com" target="_blank">WPCore.com</a>. For example <a href="http://wpcore.com/collections/6ib8eOIBndO5u0DTrmOt" target="_blank">this</a> is a collection.</p>
+						<p>On this page you can store your collection keys. You can create and manage your collections at <a href="https://wpcore.com" target="_blank">WPCore.com</a>. For example <a href="https://wpcore.com/collections/6ib8eOIBndO5u0DTrmOt" target="_blank">this</a> is a collection.</p>
 						<?php echo '<img src="' . plugins_url( '../assets/img/key.png' , __FILE__ ) . '" > '; ?>
-						<p>Collection keys appear at the top of each <a href="http://wpcore.com/collections/6ib8eOIBndO5u0DTrmOt" target="_blank">collection</a>. When you add a key to this table, it will bring the plugins from that collection into the plugin staging area where you can install and activate them.</p>
+						<p>Collection keys appear at the top of each <a href="https://wpcore.com/collections/6ib8eOIBndO5u0DTrmOt" target="_blank">collection</a>. When you add a key to this table, it will bring the plugins from that collection into the plugin staging area where you can install and activate them.</p>
 						<p>You of course should make your own collection and add it to your WordPress sites.</p>
 					</div>
 				</div>

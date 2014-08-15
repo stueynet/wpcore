@@ -1,8 +1,8 @@
 === WPCore Plugin Manager ===
 Plugin Name: WPCore Plugin Manager
-Plugin URI: http://wpcore.com
+Plugin URI: https://wpcore.com
 Tags: plugins, installation, admin, administration, install, wpcore, plugin collections, plugin groups, plugin manager, bulk plugin installer, multisite, compatible
-Author URI: http://wpcore.com
+Author URI: https://wpcore.com
 Author: Stuart Starr
 Contributors: stueynet
 Requires at least: 3.5
@@ -14,13 +14,13 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Create plugin collections and install them in one click on any WordPress site.
 
 == Description ==
-WPCore is a tool that allows you to manage collections of WordPress plugins and then quickly install them on any WordPress site. You can generate your collections at http://wpcore.com and then import them to your WordPress site by copying and pasting your unique collection key in WordPress.
+WPCore is a tool that allows you to manage collections of WordPress plugins and then quickly install them on any WordPress site. You can generate your collections at https://wpcore.com and then import them to your WordPress site by copying and pasting your unique collection key in WordPress.
 
 == Installation ==
-1. Download the plugin via http://wpcore.com/download.
+1. Download the plugin via https://wpcore.com/download.
 1. Upload the ZIP file through the \"Plugins > Add New > Upload\" screen in your WordPress dashboard.
 1. Activate the plugin through the \'Plugins\' menu in WordPress
-1. Generate a plugin collection http://wpcore.com/collections/create
+1. Generate a plugin collection https://wpcore.com/collections/create
 1. Add some plugins to that collection
 1. Copy the unique collection key
 1. In your WordPress admin panel visit Settings -> WPCore
@@ -29,7 +29,7 @@ WPCore is a tool that allows you to manage collections of WordPress plugins and 
 
 == Frequently Asked Questions ==
 
-You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
+You'll find the [FAQ on WPcore.com](https://wpcore.com/help).
 
 == Screenshots ==
 
@@ -38,6 +38,9 @@ You'll find the [FAQ on WPcore.com](http://wpcore.com/help).
 
 
 == Changelog ==
+= 1.4.9 =
+* Merged pull request from cfoellmann/fixes and updated some urls for https
+
 = 1.4.8 =
 * Fixed conflict when other plugins or themes use the TGM activation plugin. The install plugins button always works now.
 

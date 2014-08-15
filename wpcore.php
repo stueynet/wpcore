@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: WPCore Plugin Manager
- * Plugin URI: http://wpcore.com
+ * Plugin URI: https://wpcore.com
  * Description: Keep all your favorite plugins in one place and install them instantly on any site
- * Version: 1.4.8
+ * Version: 1.4.9
  * Author: Stuart Starr
  * Author URI: http://stuey.net
  * License: GPL2
