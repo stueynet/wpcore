@@ -365,7 +365,7 @@ if ( ! class_exists( 'WPCore' ) ) {
 				$json =  wp_remote_retrieve_body($response);
 				// decode to array
 				$payload = json_decode($json,true);
-				if($payload['data']['plugins']){
+				if ( isset( $payload['data']['plugins'] ) ) {
 					// Go through all the plugins and add the, to the array also
 					foreach($payload['data']['plugins'] as $plugin){
 						if($payload['success']){
@@ -450,7 +450,7 @@ if ( ! class_exists( 'WPCore' ) ) {
 
 			return array_merge(
 				array(
-					'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+					'settings' => '<a href="' . admin_url( 'admin.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
 				),
 				$links
 			);

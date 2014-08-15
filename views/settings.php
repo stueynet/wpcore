@@ -25,7 +25,7 @@
 										<h3><?php echo isset( $collection['data']['name'] ) ? $collection['data']['name'] : 'Bad Key'; ?></h3>
 										<p><input type="text" id="wpcore_keys" name="wpcore_keys[]" value="<?php echo $collection['data']['key']; ?>" required="required"></p>
 										<?php if( isset($collection['data']['name']) ): ?>
-											<a href="http://wpcore.com/collections/<?php echo $key; ?>" target="_blank">View on WPCore.com</a>
+											<a href="http://wpcore.com/collections/<?php echo $collection['data']['key']; ?>" target="_blank">View on WPCore.com</a>
 										<?php endif; ?>
 									</td>
 									<td>
