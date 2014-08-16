@@ -38,6 +38,9 @@ You'll find the [FAQ on WPcore.com](https://wpcore.com/help).
 
 
 == Changelog ==
+= 1.5.0 =
+* Fix for error on php 5.3 and below
+
 = 1.4.9 =
 * Merged pull request from cfoellmann/fixes and updated some urls for https
 
