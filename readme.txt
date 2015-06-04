@@ -6,7 +6,7 @@ Author URI: https://wpcore.com
 Author: Stuart Starr
 Contributors: stueynet
 Requires at least: 3.5
-Tested up to: 3.9.2
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -38,6 +38,9 @@ You'll find the [FAQ on WPcore.com](https://wpcore.com/help).
 
 
 == Changelog ==
+= 1.6.0 =
+* Updated the TGM activation class to 2.4.2
+
 = 1.5.0 =
 * Fix for error on php 5.3 and below
 
