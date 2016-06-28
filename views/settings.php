@@ -65,7 +65,7 @@
 				</p>
 				<?php if( count( $payload ) ):?>
 					<input type="button" id="wpcore_addrow" class="button button-large" value="Add another collection key" />
-					<a href="admin.php?page=<?php echo TGM_Plugin_Activation::get_instance()->menu; ?>" class="button button-large float-right">Install Plugins</a>
+					<a href="<?php echo TGM_Plugin_Activation::get_instance()->parent_slug; ?>?page=<?php echo TGM_Plugin_Activation::get_instance()->menu; ?>" class="button button-large float-right">Install Plugins</a>
 
 
 
@@ -85,8 +85,9 @@
 				<h3>Export plugins to a collection</h3>
 				<div class="inside">
 					<div class="main">
-						<p>Quickly drop all the active plugins on this site into a new collection at WPCore.com. Only active plugins from WordPress.org will be included.</p>
-						<a href="<?php echo $this->wpcore_export_link(); ?>" class="button button-large" target="_blank">Export</a>
+						<p>Quickly export all the plugins on this site into a new collection at WPCore.com.</p>
+						<p><a href="<?php echo $this->wpcore_export_link(); ?>" class="button button-large" target="_blank">Export active plugins</a></p>
+						<p><a href="<?php echo $this->wpcore_export_link(false); ?>" class="button button-large" target="_blank">Export all plugins</a></p>
 					</div>
 				</div>
 			</div>

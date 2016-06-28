@@ -6,7 +6,7 @@ Author URI: https://wpcore.com
 Author: Stuart Starr
 Contributors: stueynet
 Requires at least: 3.5
-Tested up to: 4.2
+Tested up to: 4.5
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -15,6 +15,7 @@ Create plugin collections and install them in one click on any WordPress site.
 
 == Description ==
 WPCore is a tool that allows you to manage collections of WordPress plugins and then quickly install them on any WordPress site. You can generate your collections at https://wpcore.com and then import them to your WordPress site by copying and pasting your unique collection key in WordPress.
+
 
 == Installation ==
 1. Download the plugin via https://wpcore.com/download.
@@ -38,6 +39,18 @@ You'll find the [FAQ on WPcore.com](https://wpcore.com/help).
 
 
 == Changelog ==
+= 1.7.3 =
+* Add ability to export all plugins in addition to active plugins
+
+= 1.7.2 =
+* Update to version 2.5.2 of http://tgmpluginactivation.com/
+
+= 1.6.3 =
+* Remove wpcore_keys from options table upon plugin uninstall / delete
+
+= 1.6.2 =
+* Minor fix to ensure only users with the 'install_plugins' capability can see it
+
 = 1.6.0 =
 * Updated the TGM activation class to 2.4.2
 
