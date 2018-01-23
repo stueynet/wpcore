@@ -6,7 +6,7 @@ Author URI: https://wpcore.com
 Author: Stuart Starr
 Contributors: stueynet
 Requires at least: 3.5
-Tested up to: 4.6
+Tested up to: 4.7
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -39,6 +39,12 @@ You'll find the [FAQ on WPcore.com](https://wpcore.com/help).
 
 
 == Changelog ==
+= 1.8.2 =
+* Update textdomain so you see notices
+
+= 1.8.1 =
+* Update textdomain so you see notices
+
 = 1.8.0 =
 * Update to TGM plugin Activation version 2.6.1
 

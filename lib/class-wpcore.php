@@ -257,7 +257,7 @@ if ( ! class_exists( 'WPCore' ) ) {
             $plugins = $this->get_plugins_from_payload();
 
             // convert to object
-            $theme_text_domain = 'tgmpa';
+            $theme_text_domain = 'wpcore';
 
             /**
              * Array of configuration settings. Amend each line as needed.
