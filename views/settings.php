@@ -16,7 +16,7 @@
 					<tbody>
 					<?php
 					$payload = $this->get_payload();
-					if( count($payload) > 0 ):
+					if( is_array($payload) && count($payload) > 0 ):
 						foreach($payload as $collection){
 
 							?>
@@ -63,7 +63,7 @@
 					</tbody>
 				</table>
 				</p>
-				<?php if( count( $payload ) ):?>
+				<?php if( is_array($payload) && count( $payload ) ):?>
 					<input type="button" id="wpcore_addrow" class="button button-large" value="Add another collection key" />
 					<a href="<?php echo TGM_Plugin_Activation::get_instance()->parent_slug; ?>?page=<?php echo TGM_Plugin_Activation::get_instance()->menu; ?>" class="button button-large float-right">Install Plugins</a>
 
