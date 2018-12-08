@@ -107,7 +107,7 @@
 				<div class="inside">
 					<div class="main">
 						<p>You can install and activate your plugins using the WordPress CLI.</p>
-						<p><code>wp wpcore import --key=12345</code></p>
+						<p><code>wp wpcore install --key=12345</code></p>
 						<p><strong>Options</strong></h3>
 						<p><code>--force=yes</code><br/>Overwrite existing plugins if installed</p>
 						<p><code>--activate=yes</code><br/>Activate the plugins</p>

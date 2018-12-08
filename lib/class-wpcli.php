@@ -5,7 +5,8 @@
  * @version 0.0.1
  * @author Stuart Starr <stuart@stuey.net>
  */
-if ( true === class_exists( 'WP_CLI_Command' ) ){
+
+if ( true === class_exists( 'WP_CLI_Command' ) && defined( 'WP_CLI' ) && WP_CLI ){
 	/**
 	 * Do something.
 	 */
@@ -16,8 +17,8 @@ if ( true === class_exists( 'WP_CLI_Command' ) ){
         /**
          * Import WPCore.com collections via the command line!
          *
-         * <command>
-         * : Import a wpcore collection.
+         * <install>
+         * : Install the plugins from a wpcore collection.
          * --key=<key>
          * : The collection key you want to install.
          * 
