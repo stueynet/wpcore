@@ -13,7 +13,6 @@ if ( true === class_exists( 'WP_CLI_Command' ) && defined( 'WP_CLI' ) && WP_CLI 
 	class WP_CLI_WPCore_Command extends WP_CLI_Command{
 		
 		private $version = '0.1.3';
-		
         /**
          * Import WPCore.com collections via the command line!
          *

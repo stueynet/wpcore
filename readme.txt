@@ -6,7 +6,7 @@ Author URI: https://wpcore.com
 Author: Stuart Starr
 Contributors: stueynet
 Requires at least: 3.5
-Tested up to: 5.0
+Tested up to: 6.2.2
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -37,8 +37,13 @@ You'll find the [FAQ on WPcore.com](https://wpcore.com/help).
 1. Create plugin collections at wpcore.com
 2. Install them instantly on any WordPress site.
 
-
 == Changelog ==
+= 1.9.2 =
+* Fixed a bug with PHP 8.*
+
+= 1.9.1 =
+* Removed calls to screen_icon
+
 = 1.9.0 =
 * Added WP-CLI support!
 

@@ -1,10 +1,9 @@
 <div class="wrap">
-	<?php screen_icon(); ?>
 	<h2>WPCore Plugin Collections</h2>
 	<div class="grid">
 		<div class="unit three-quarters">
 			<form method="post" action="options.php">
-				<?php settings_fields( 'default' ); ?>
+				<?php settings_fields('default'); ?>
 				<table class="wp-list-table widefat fixed pages" id="wpcore_keys">
 					<thead valign="top">
 					<tr>
@@ -15,55 +14,53 @@
 					</thead>
 					<tbody>
 					<?php
-					$payload = $this->get_payload();
-					if( is_array($payload) && count($payload) > 0 ):
-						foreach($payload as $collection){
-
-							?>
+                    $payload = $this->get_payload();
+                    if (is_array($payload) && count($payload) > 0):
+                        foreach ($payload as $collection) {
+                            ?>
 								<tr>
 									<td>
-										<h3><?php echo isset( $collection['data']['name'] ) ? $collection['data']['name'] : 'Bad Key'; ?></h3>
+										<h3><?php echo isset($collection['data']['name']) ? $collection['data']['name'] : 'Bad Key'; ?></h3>
 										<p><input type="text" id="wpcore_keys" name="wpcore_keys[]" value="<?php echo $collection['data']['key']; ?>" required="required"></p>
-										<?php if( isset($collection['data']['name']) ): ?>
+										<?php if (isset($collection['data']['name'])): ?>
 											<a href="https://wpcore.com/collections/<?php echo $collection['data']['key']; ?>" target="_blank">View on WPCore.com</a>
 										<?php endif; ?>
 									</td>
 									<td>
 										<ul>
 											<?php
-											if( $collection['success'] == true ) {
-												$count = count( $collection['data']['plugins'] );
-												$i = 1;
-												foreach( $collection['data']['plugins'] as $plugin ){
-													?>
+                                            if ($collection['success'] == true) {
+                                                $count = count($collection['data']['plugins']);
+                                                $i = 1;
+                                                foreach ($collection['data']['plugins'] as $plugin) {
+                                                    ?>
 													<a href="<?php echo get_admin_url(); ?>plugin-install.php?tab=plugin-information&plugin=<?php echo $plugin['slug']; ?>&TB_iframe=true&width=640&height=500" class="thickbox" title="<?php echo $plugin['name']; ?>"><?php echo $plugin['name']; ?></a>
 													<?php
-													if( $i != $count )
-														echo ', ';
-													$i++;
-												}
-											} else {
-												echo 'Bad key';
-											}
-											?>
+                                                    if ($i != $count) {
+                                                        echo ', ';
+                                                    }
+                                                    $i++;
+                                                }
+                                            } else {
+                                                echo 'Bad key';
+                                            } ?>
 										</ul>
 									</td>
 									<td align="right">
 										<input type="button" class="wpcore_ibtnDel button button-small"  value="Delete">
 									</td>
 								</tr>
-							<?php }
+							<?php
+                        } else:
 
-					else:
+                        echo '<p>Click the add key button below to add a collection key</p>';
 
-						echo '<p>Click the add key button below to add a collection key</p>';
-
-					endif;
-					?>
+                    endif;
+                    ?>
 					</tbody>
 				</table>
 				</p>
-				<?php if( is_array($payload) && count( $payload ) ):?>
+				<?php if (is_array($payload) && count($payload)):?>
 					<input type="button" id="wpcore_addrow" class="button button-large" value="Add another collection key" />
 					<a href="<?php echo TGM_Plugin_Activation::get_instance()->parent_slug; ?>?page=<?php echo TGM_Plugin_Activation::get_instance()->menu; ?>" class="button button-large float-right">Install Plugins</a>
 
@@ -96,7 +93,7 @@
 				<div class="inside">
 					<div class="main">
 						<p>On this page you can store your collection keys. You can create and manage your collections at <a href="https://wpcore.com" target="_blank">WPCore.com</a>. For example <a href="https://wpcore.com/collections/6ib8eOIBndO5u0DTrmOt" target="_blank">this</a> is a collection.</p>
-						<?php echo '<img src="' . plugins_url( '../assets/img/key.png' , __FILE__ ) . '" > '; ?>
+						<?php echo '<img src="' . plugins_url('../assets/img/key.png', __FILE__) . '" > '; ?>
 						<p>Collection keys appear at the top of each <a href="https://wpcore.com/collections/6ib8eOIBndO5u0DTrmOt" target="_blank">collection</a>. When you add a key to this table, it will bring the plugins from that collection into the plugin staging area where you can install and activate them.</p>
 						<p>You of course should make your own collection and add it to your WordPress sites.</p>
 					</div>
